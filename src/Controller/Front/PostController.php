@@ -25,7 +25,7 @@ class PostController extends ActionController
         // Get Module Config
         $configNews = Pi::service('registry')->config->read('news');
         // Find spost
-        $post = Pi::api('api', 'news')->getStorySingle($slug, 'slug', 'full');
+        $post = Pi::api('post', 'blog')->getPost($slug, 'slug', 'full');
         // Check status
         if (!$post || $post['status'] != 1 || $post['type'] != 'post') {
             $this->getResponse()->setStatusCode(404);
