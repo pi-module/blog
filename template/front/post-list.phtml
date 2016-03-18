@@ -1,0 +1,58 @@
+<?php $this->css($this->assetModule('css/front.css')); ?>
+<div class="clearfix">
+    <div class="page-header clearfix">
+        <h1><?php echo $this->escape($title); ?></h1>
+    </div>
+    <?php if (!empty($config['text_description_index']) && isset($page) && $page == 1) { ?>
+        <div class="well post-description">
+            <?php echo $config['text_description_index']; ?>
+        </div>
+    <?php } ?>
+    <?php if (!empty($postList)) { ?>
+        <div class="post-list clearfix" itemscope itemtype="http://schema.org/LiveBlogPosting">
+            <?php foreach ($postList as $post) { ?>
+                <div class="post-single clearfix h-post" itemprop="liveBlogUpdate" itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <?php if ($post['image']) { ?>
+                                <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
+                                   href="<?php echo $this->escape($post['postUrl']); ?>">
+                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                         src="<?php echo $this->escape($post['thumbUrl']); ?>"
+                                         alt="<?php echo $this->escape($post['title']); ?>"/>
+                                </a>
+                            <?php } ?>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="post-single-title p-name" itemprop="name">
+                                <h2 class="clearfix" itemprop="headline">
+                                    <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
+                                       href="<?php echo $this->escape($post['postUrl']); ?>">
+                                        <?php echo $this->escape($post['title']); ?>
+                                    </a>
+                                    <?php if ($post['subtitle']) { ?>
+                                        <small class="pull-right"><?php echo $this->escape($post['subtitle']); ?></small>
+                                    <?php } ?>
+                                </h2>
+                            </div>
+                            <div class="post-single-information small">
+                                <ul class="clearfix list-inline post-time">
+                                    <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($post['time_create_view']); ?></li>
+                                    <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($post['hits'])); ?></li>
+                                </ul>
+                            </div>
+                            <?php if (!empty($post['text_summary'])) { ?>
+                                <div class="post-single-summery clearfix p-summary" itemprop="articleBody description">
+                                    <?php echo $post['text_summary']; ?>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        <div class="paginator">
+            <?php echo $this->paginationControl($paginator, 'Sliding', 'paginator.phtml'); ?>
+        </div>
+    <?php } ?>
+</div>

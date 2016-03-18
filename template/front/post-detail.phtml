@@ -1,0 +1,200 @@
+<?php
+// Load front.css
+$this->css($this->assetModule('css/front.css'));
+// Image lightbox
+if ($configNews['image_lightbox']) {
+    $script = <<<'EOT'
+        $('.gallery').each(function() {
+    		$(this).magnificPopup({
+        		delegate: 'a',
+        		type: 'image',
+        		gallery: {
+          			enabled:true
+        		}
+    		});
+		});
+EOT;
+    $this->jQuery(array(
+        'extension/jquery.magnific-popup.min.js',
+        'extension/magnific-popup.css',
+    ));
+    $this->footScript()->appendScript($script);
+}
+// Set Open Graph tags for meta
+$this->doctype('HTML5');
+$this->headMeta($this->escape($post['title']), 'og:title', 'property');
+$this->headMeta($this->escape($post['postUrl']), 'og:url', 'property');
+if (isset($post['text_summary']) && !empty($post['text_summary'])) {
+    $this->headMeta(_strip($post['text_summary']), 'og:description', 'property');
+}
+if (!empty($post['largeUrl'])) {
+    $this->headMeta($this->escape($post['largeUrl']), 'og:image', 'property');
+}
+// Set twitter for meta
+$this->headMeta($this->escape($post['title']), 'twitter:title');
+if (isset($post['text_summary']) && !empty($post['text_summary'])) {
+    $this->headMeta(_strip($post['text_summary']), 'twitter:description');
+}
+if (!empty($post['largeUrl'])) {
+    $this->headMeta($this->escape($post['largeUrl']), 'twitter:image');
+}
+?>
+<div class="clearfix" itemscope itemtype="http://schema.org/BlogPosting">
+    <div class="news-post-page clearfix h-entry">
+        <div class="col-md-8">
+            <div class="news-post-page-body">
+                <div class="clearfix postHeader">
+                    <h1 class="p-name" itemprop="name headline">
+                        <?php echo $this->escape($post['title']); ?>
+                    </h1>
+                    <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
+                    <div class="clearfix">
+                        <ul class="list-inline text-muted">
+                            <?php if ($configNews['show_date']) { ?>
+                                <li class="itemPostDate dt-published">
+                                    <i class="fa fa-calendar"></i> <?php _e('Time'); ?>
+                                    : <?php echo $this->escape($post['time_publish_view']); ?>
+                                </li>
+                            <?php } ?>
+                            <?php if ($configNews['show_hits']) { ?>
+                                <li class="itemStats">
+                                    <i class="fa fa-eye"></i> <?php _e('Read'); ?>
+                                    : <?php echo _number($this->escape($post['hits'])); ?> <?php _e('Times'); ?>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+                <?php if ($post['subtitle']) { ?>
+                    <p><?php echo $this->escape($post['subtitle']); ?></p>
+                <?php } ?>
+                <div class="clearfix p-summary" itemprop="description">
+                    <?php echo $post['text_summary']; ?>
+                </div>
+                <div class="clearfix e-content" itemprop="description">
+                    <?php echo $post['text_description']; ?>
+                </div>
+                <div class="postMedia clearfix">
+                    <?php include $this->template('attach-audio', 'front', 'news'); ?>
+                    <?php include $this->template('attribute-audio', 'front', 'news'); ?>
+                    <?php include $this->template('attach-video', 'front', 'news'); ?>
+                    <?php include $this->template('attribute-video', 'front', 'news'); ?>
+                    <?php include $this->template('attribute-file', 'front', 'news'); ?>
+                    <?php include $this->template('attach', 'front', 'news'); ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="news-post-page-side">
+                <?php if ($post['image'] || (isset($attach['image']) && !empty($attach['image']))) { ?>
+                    <div class="gallery">
+                        <div class="postImageMain">
+                            <div class="thumbnail u-photo">
+                                <a href="<?php echo $post['largeUrl']; ?>"
+                                   title="<?php echo $this->escape($post['title']); ?>">
+                                    <img itemprop="image" class="img-responsive"
+                                         src="<?php echo $this->escape($post['mediumUrl']); ?>"
+                                         alt="<?php echo $this->escape($post['title']); ?>"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="postImageAttach row">
+                            <?php include $this->template('attach-image', 'front', 'news'); ?>
+                        </div>
+                    </div>
+                <?php } ?>
+                <div class="clearfix">
+                    <ul class="list-inline">
+                        <li><?php if (!empty($vote)) {
+                                include $this->template('votebar.phtml', 'front', 'vote');
+                            } ?></li>
+                        <li><?php if (!empty($favourite)) {
+                                include $this->template('favouritebar.phtml', 'front', 'favourite');
+                            } ?></li>
+                    </ul>
+                </div>
+                <?php if (!empty($post['authors']) && $configNews['show_author']) { ?>
+                    <div class="clearfix">
+                        <?php foreach ($post['authors'] as $author) { ?>
+                            <div class="p-author clearfix" itemprop="publisher">
+                                <p class="text-center">
+                                    <img itemprop="image" class="img-circle"
+                                         src="<?php echo $this->escape($author['authorThumbUrl']); ?>"
+                                         alt="<?php echo $this->escape($author['authorName']); ?>"/>
+                                </p>
+
+                                <p class="text-center">
+                                    <?php echo $this->escape($author['authorRole']); ?> :
+                                    <a title="<?php echo $this->escape($author['authorName']); ?>"
+                                       href="<?php echo $this->escape($author['authorUrl']); ?>">
+                                        <?php echo $this->escape($author['authorName']); ?>
+                                    </a>
+                                </p>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+                <?php if ($configNews['show_tag'] && isset($tag) && !empty($tag)) { ?>
+                    <div class="well clearfix">
+                        <h2><?php _e('Tags'); ?></h2>
+                        <ul class="tagList list-inline">
+                            <?php foreach ($tag as $term) { ?>
+                                <li class="tagItem">
+                                    <a title="<?php echo $this->escape($term); ?>"
+                                       href="<?php echo Pi::url($this->url('', array('controller' => 'tag', 'action' => 'term', 'slug' => urlencode($term)))); ?>">
+                                        <i class="fa fa-tag"></i> <?php echo $this->escape($term); ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                <?php } ?>
+                <?php include $this->template('attribute', 'front', 'news'); ?>
+                <?php if ($configNews['social_sharing']) { ?>
+                    <div class="clearfix">
+                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
+                            <strong><?php _e('Share if you like'); ?></strong>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
+                            <?php echo $this->socialSharing(
+                                $configNews['social_sharing'],
+                                $this->escape($post['title']),
+                                $this->escape($post['postUrl']),
+                                $this->escape($post['largeUrl'])
+                            ); ?>
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if (isset($relateds) && !empty($relateds)) { ?>
+                    <div class="panel panel-default news-post-related">
+                        <div class="panel-heading">
+                            <?php _e('Related posts'); ?>
+                        </div>
+                        <div class="list-group">
+                            <?php foreach ($relateds as $related) { ?>
+                                <div class="list-group-item clearfix" itemscope itemtype="http://schema.org/Article">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <?php if ($related['image']) { ?>
+                                                <img itemprop="image" class="img-responsive u-photo"
+                                                     src="<?php echo $this->escape($related['thumbUrl']); ?>"
+                                                     alt="<?php echo $this->escape($related['title']); ?>"/>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <a itemprop="url" class="u-url" title="<?php echo $this->escape($related['title']); ?>"
+                                               href="<?php echo $this->escape($related['postUrl']); ?>">
+                                                <span class="p-name" itemprop="name headline"><?php echo $this->escape($related['title']); ?></span>
+                                            </a>
+                                            <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $related['time_publish'])); ?>" />
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>

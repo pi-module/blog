@@ -24,44 +24,44 @@ class PostController extends ActionController
         $module = $this->params('module');
         // Get Module Config
         $configNews = Pi::service('registry')->config->read('news');
-        // Find story
-        $story = Pi::api('api', 'news')->getStorySingle($slug, 'slug', 'full');
+        // Find spost
+        $post = Pi::api('api', 'news')->getStorySingle($slug, 'slug', 'full');
         // Check status
-        if (!$story || $story['status'] != 1 || $story['type'] != 'post') {
+        if (!$post || $post['status'] != 1 || $post['type'] != 'post') {
             $this->getResponse()->setStatusCode(404);
             $this->terminate(__('The post not found.'), '', 'error-404');
             $this->view()->setLayout('layout-simple');
             return;
         }
         // Check time_publish
-        if ($story['time_publish'] > time()) {
+        if ($post['time_publish'] > time()) {
             $this->getResponse()->setStatusCode(401);
             $this->terminate(__('The post not publish.'), '', 'error-404');
             $this->view()->setLayout('layout-simple');
             return;
         }
         // Update Hits
-        Pi::model('story', 'news')->increment('hits', array('id' => $story['id']));
+        Pi::model('story', 'news')->increment('hits', array('id' => $post['id']));
         // Attached
-        if ($configNews['show_attach'] && $story['attach']) {
-            $attach = Pi::api('story', 'news')->AttachList($story['id']);
+        if ($configNews['show_attach'] && $post['attach']) {
+            $attach = Pi::api('story', 'news')->AttachList($post['id']);
             $this->view()->assign('attach', $attach);
         }
         // Attribute
-        if ($configNews['show_attribute'] && $story['attribute']) {
-            $attribute = Pi::api('attribute', 'news')->Story($story['id'], $story['topic_main']);
+        if ($configNews['show_attribute'] && $post['attribute']) {
+            $attribute = Pi::api('attribute', 'news')->Story($post['id'], $post['topic_main']);
             $this->view()->assign('attribute', $attribute);
         }
         // Tag
         if ($configNews['show_tag'] && Pi::service('module')->isActive('tag')) {
-            $tag = Pi::service('tag')->get($module, $story['id'], '');
+            $tag = Pi::service('tag')->get($module, $post['id'], '');
             $this->view()->assign('tag', $tag);
         }
         // Set vote
         if ($configNews['vote_bar'] && Pi::service('module')->isActive('vote')) {
-            $vote['point'] = $story['point'];
-            $vote['count'] = $story['count'];
-            $vote['item'] = $story['id'];
+            $vote['point'] = $post['point'];
+            $vote['count'] = $post['count'];
+            $vote['item'] = $post['id'];
             $vote['table'] = 'story';
             $vote['module'] = $module;
             $vote['type'] = 'star';
@@ -69,18 +69,18 @@ class PostController extends ActionController
         }
         // favourite
         if ($configNews['favourite_bar'] && Pi::service('module')->isActive('favourite')) {
-            $favourite['is'] = Pi::api('favourite', 'favourite')->loadFavourite($module, 'story', $story['id']);
-            $favourite['item'] = $story['id'];
+            $favourite['is'] = Pi::api('favourite', 'favourite')->loadFavourite($module, 'story', $post['id']);
+            $favourite['item'] = $post['id'];
             $favourite['table'] = 'story';
             $favourite['module'] = $module;
             $this->view()->assign('favourite', $favourite);
         }
         // Set view
-        $this->view()->headTitle($story['seo_title']);
-        $this->view()->headdescription($story['seo_description'], 'set');
-        $this->view()->headkeywords($story['seo_keywords'], 'set');
-        $this->view()->setTemplate('post-index');
-        $this->view()->assign('story', $story);
+        $this->view()->headTitle($post['seo_title']);
+        $this->view()->headdescription($post['seo_description'], 'set');
+        $this->view()->headkeywords($post['seo_keywords'], 'set');
+        $this->view()->setTemplate('post-detail');
+        $this->view()->assign('post', $post);
         $this->view()->assign('configNews', $configNews);
     }
 }
