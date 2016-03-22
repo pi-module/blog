@@ -1,0 +1,59 @@
+<?php if ($block['block-effect']) {
+    $this->css($this->assetModule('css/block.css', 'blog'));
+} ?>
+<div class="blog-block">
+    <?php if (!empty($block['resources'])) { ?>
+        <div class="recent-post-list clearfix" itemscope itemtype="http://schema.org/LiveBlogPosting">
+            <?php foreach ($block['resources'] as $post) { ?>
+                <div class="recent-post-single clearfix h-post" itemprop="liveBlogUpdate" itemscope itemtype="http://schema.org/BlogPosting">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <?php if ($post['image'] && $block['show-image']) { ?>
+                                <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
+                                   href="<?php echo $this->escape($post['postUrl']); ?>">
+                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                         src="<?php echo $this->escape($post['thumbUrl']); ?>"
+                                         alt="<?php echo $this->escape($post['title']); ?>"/>
+                                </a>
+                            <?php } ?>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="recent-post-single-title p-name" itemprop="name">
+                                <h3 class="clearfix" itemprop="headline">
+                                    <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
+                                       href="<?php echo $this->escape($post['postUrl']); ?>">
+                                        <?php echo $this->escape($post['title']); ?>
+                                    </a>
+                                    <?php if ($post['subtitle']) { ?>
+                                        <small class="pull-right"><?php echo $this->escape($post['subtitle']); ?></small>
+                                    <?php } ?>
+                                </h3>
+                            </div>
+                            <div class="recent-post-single-information small">
+                                <ul class="clearfix list-inline recent-post-time">
+                                    <?php if ($block['show-time']) { ?>
+                                    <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($post['time_create_view']); ?></li>
+                                    <?php } ?>
+                                    <?php if ($block['show-hits']) { ?>
+                                    <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($post['hits'])); ?></li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                            <?php if (!empty($post['text_summary']) && $block['show-summary']) { ?>
+                                <div class="recent-post-single-summery clearfix p-summary" itemprop="articleBody description">
+                                    <?php echo $post['text_summary']; ?>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        <?php if ($block['show_morelink']) { ?>
+            <div class="recent-event-more clearfix">
+                <a title="<?php echo _b('More posts'); ?>"
+                   href="<?php echo $this->escape($block['morelink']); ?>"><?php echo _b('More posts'); ?></a>
+            </div>
+        <?php } ?>
+    <?php } ?>
+</div>

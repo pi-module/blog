@@ -1,0 +1,22 @@
+.post-single {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+
+.post-single h2 {
+    padding: 1px;
+    margin: 1px;
+}
+
+.post-single img {
+    padding-top: 2px;
+}
+
+.post-image-main {
+    margin-bottom: 25px;
+}
+
+.post-single-sidebar .list-unstyled li {
+    margin-bottom: 8px;
+}

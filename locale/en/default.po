@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: support\n"
+"POT-Creation-Date: 2016-03-22 10:21+0430\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: src/Controller/Front/IndexController.php:49
+msgid "Blog post list"
+msgstr ""
+
+#: src/Controller/Front/PostController.php:32
+msgid "The post not found."
+msgstr ""
+
+#: src/Controller/Front/PostController.php:39
+msgid "The post not publish."
+msgstr ""
+
+#: template/admin/index-index.phtml:2
+msgid "Blog admin"
+msgstr ""
+
+#: template/admin/index-index.phtml:3
+msgid ""
+"Blog is part of news module, you need send post as story on news module and "
+"just select blog post type, all stories than have blog post type , will show "
+"on blog module front side"
+msgstr ""
+
+#: template/front/post-detail.phtml:55
+msgid "Time"
+msgstr ""
+
+#: template/front/post-detail.phtml:61
+msgid "Read"
+msgstr ""
+
+#: template/front/post-detail.phtml:62
+msgid "Times"
+msgstr ""
+
+#: template/front/post-detail.phtml:139
+msgid "Tags"
+msgstr ""
+
+#: template/front/post-detail.phtml:156
+msgid "Share if you like"
+msgstr ""
+
+#: template/front/post-detail.phtml:171
+msgid "Related posts"
+msgstr ""

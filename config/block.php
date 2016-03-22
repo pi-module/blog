@@ -59,6 +59,13 @@ return array(
                 'filter' => 'number_int',
                 'value' => 1,
             ),
+            'show-image' => array(
+                'title' => _a('Show image'),
+                'description' => '',
+                'edit' => 'checkbox',
+                'filter' => 'number_int',
+                'value' => 1,
+            ),
             'show-morelink' => array(
                 'title' => _a('Show more link'),
                 'description' => '',
