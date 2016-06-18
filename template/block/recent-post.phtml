@@ -3,11 +3,11 @@
 } ?>
 <div class="blog-block">
     <?php if (!empty($block['resources'])) { ?>
-        <div class="recent-post-list clearfix" itemscope itemtype="http://schema.org/LiveBlogPosting">
+        <div class="recent-post-list clearfix">
             <?php foreach ($block['resources'] as $post) { ?>
                 <div class="recent-post-single clearfix h-post" itemprop="liveBlogUpdate" itemscope itemtype="http://schema.org/BlogPosting">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <?php if ($post['image'] && $block['show-image']) { ?>
                                 <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
                                    href="<?php echo $this->escape($post['postUrl']); ?>">
@@ -17,16 +17,13 @@
                                 </a>
                             <?php } ?>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div class="recent-post-single-title p-name" itemprop="name">
                                 <h3 class="clearfix" itemprop="headline">
                                     <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
                                        href="<?php echo $this->escape($post['postUrl']); ?>">
                                         <?php echo $this->escape($post['title']); ?>
                                     </a>
-                                    <?php if ($post['subtitle']) { ?>
-                                        <small class="pull-right"><?php echo $this->escape($post['subtitle']); ?></small>
-                                    <?php } ?>
                                 </h3>
                             </div>
                             <div class="recent-post-single-information small">
