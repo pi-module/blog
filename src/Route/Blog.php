@@ -55,7 +55,7 @@ class Blog extends Standard
         if (isset($matches['controller']) && isset($parts[0]) && !empty($parts[0])) {
             switch ($matches['controller']) {
                 case 'post':
-                    $matches['slug'] = $this->decode($parts[0]);
+                    $matches['slug'] = urldecode($parts[0]);;
                     break;
             }
         }
