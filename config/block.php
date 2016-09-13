@@ -17,13 +17,13 @@ return array(
         'render' => array('block', 'recentPost'),
         'template' => 'recent-post',
         'config' => array(
-            'topic-id' => array(
+            /* 'topic-id' => array(
                 'title' => _a('Category'),
                 'description' => '',
                 'edit' => 'Module\News\Form\Element\Topic',
                 'filter' => 'string',
                 'value' => 0,
-            ),
+            ), */
             'number' => array(
                 'title' => _a('Number'),
                 'description' => '',

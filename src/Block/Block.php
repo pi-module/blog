@@ -28,12 +28,13 @@ class Block
             'type' => 'post',
         );
 
-        if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
+        /* if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
             $where['topic'] = $block['topic-id'];
             $table = 'link';
         } else {
             $table = 'story';
-        }
+        } */
+        $table = 'story';
 
         $order = array('time_publish ASC', 'id ASC');
 
