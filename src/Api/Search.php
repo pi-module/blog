@@ -35,28 +35,27 @@ class Search extends AbstractSearch
      * {@inheritDoc}
      */
     protected $meta = array(
-        'id' => 'id',
-        'title' => 'title',
-        'text_summary' => 'content',
-        'time_create' => 'time',
-        'uid' => 'uid',
-        'slug' => 'slug',
-        'image' => 'image',
-        'path' => 'path',
+        'id'            => 'id',
+        'title'         => 'title',
+        'text_summary'  => 'content',
+        'time_create'   => 'time',
+        'slug'          => 'slug',
+        'image'         => 'image',
+        'path'          => 'path',
     );
 
     /**
      * {@inheritDoc}
      */
     protected $condition = array(
-        'status' => 1,
-        'type' => 'post',
+        'status'  => 1,
+        'type'    => 'post',
     );
 
     /**
      * {@inheritDoc}
      */
-    protected function getModel()
+    protected function getModel($table = '')
     {
         $model = Pi::model('story', 'news');
 
@@ -66,7 +65,7 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected function buildUrl(array $item)
+    protected function buildUrl(array $item, $table = '')
     {
         $link = Pi::url(Pi::service('url')->assemble('blog', array(
             'module' => $this->getModule(),
@@ -80,7 +79,7 @@ class Search extends AbstractSearch
     /**
      * {@inheritDoc}
      */
-    protected function buildImage(array $item)
+    protected function buildImage(array $item, $table = '')
     {
         // Get config
         $config = Pi::service('registry')->config->read('news');
