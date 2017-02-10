@@ -36,7 +36,7 @@ class Block
         } */
         $table = 'story';
 
-        $order = array('time_publish ASC', 'id ASC');
+        $order = array('time_publish DESC', 'id DESC');
 
         // Set block array
         $block['resources'] = Pi::api('post', 'blog')->getPostList($where, $order, '', $block['number'], 'full', $table);
