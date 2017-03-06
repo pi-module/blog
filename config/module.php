@@ -15,7 +15,7 @@ return array(
     'meta' => array(
         'title' => _a('Blog'),
         'description' => _a('Simple blog system'),
-        'version' => '0.0.5',
+        'version' => '0.0.6',
         'license' => 'New BSD',
         'logo' => 'image/logo.png',
         'readme' => 'docs/readme.txt',

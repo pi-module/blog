@@ -23,23 +23,24 @@ class Block
         $block = array();
         $block = array_merge($block, $options);
 
+        // Set info
         $where = array(
             'status' => 1,
             'type' => 'post',
         );
-
-        /* if (isset($block['topic-id']) && !empty($block['topic-id']) && !in_array(0, $block['topic-id'])) {
-            $where['topic'] = $block['topic-id'];
-            $table = 'link';
-        } else {
-            $table = 'story';
-        } */
         $table = 'story';
-
         $order = array('time_publish DESC', 'id DESC');
 
         // Set block array
-        $block['resources'] = Pi::api('post', 'blog')->getPostList($where, $order, '', $block['number'], 'full', $table);
+        $posts = Pi::api('post', 'blog')->getPostList($where, $order, '', $block['number'], 'full', $table);
+
+        foreach ($posts as $post) {
+            $block['resources'][$post['id']] = $post;
+            if (!empty($block['textlimit']) && $block['textlimit'] > 0) {
+                $block['resources'][$post['id']]['text_summary'] = mb_substr(strip_tags($block['resources'][$post['id']]['text_summary']), 0, $block['textlimit'], 'utf-8' ) . "...";
+            }
+        }
+
         $block['morelink'] = Pi::url(Pi::service('url')->assemble('blog', array(
             'module' => $module,
             'controller' => 'index',

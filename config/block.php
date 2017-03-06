@@ -17,19 +17,26 @@ return array(
         'render' => array('block', 'recentPost'),
         'template' => 'recent-post',
         'config' => array(
-            /* 'topic-id' => array(
-                'title' => _a('Category'),
-                'description' => '',
-                'edit' => 'Module\News\Form\Element\Topic',
-                'filter' => 'string',
-                'value' => 0,
-            ), */
             'number' => array(
                 'title' => _a('Number'),
                 'description' => '',
                 'edit' => 'text',
                 'filter' => 'number_int',
                 'value' => 5,
+            ),
+            'show-summary' => array(
+                'title' => _a('Show summary'),
+                'description' => '',
+                'edit' => 'checkbox',
+                'filter' => 'number_int',
+                'value' => 1,
+            ),
+            'textlimit' => array(
+                'title' => _a('Text width limit'),
+                'description' => _a('Set 0 for no limit'),
+                'edit' => 'text',
+                'filter' => 'number_int',
+                'value' => 0,
             ),
             'show-time' => array(
                 'title' => _a('Show time'),
@@ -47,13 +54,6 @@ return array(
             ),
             'show-hits' => array(
                 'title' => _a('Show hits'),
-                'description' => '',
-                'edit' => 'checkbox',
-                'filter' => 'number_int',
-                'value' => 1,
-            ),
-            'show-summary' => array(
-                'title' => _a('Show summary'),
                 'description' => '',
                 'edit' => 'checkbox',
                 'filter' => 'number_int',
