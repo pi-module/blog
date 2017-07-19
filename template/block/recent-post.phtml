@@ -7,7 +7,7 @@
             <?php foreach ($block['resources'] as $post) { ?>
                 <div class="recent-post-single clearfix h-post" itemprop="liveBlogUpdate" itemscope itemtype="http://schema.org/BlogPosting">
                     <div class="row">
-                        <?php if ($post['image'] && $block['show-image']) { ?>
+                        <?php if ($post['main_image'] && $block['show-image']) { ?>
                             <div class="col-md-4">
                                 <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
                                    href="<?php echo $this->escape($post['postUrl']); ?>">
@@ -17,7 +17,7 @@
                                 </a>
                             </div>
                         <?php } ?>
-                        <div class="<?php if ($post['image'] && $block['show-image']) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?>">
+                        <div class="<?php if ($post['main_image'] && $block['show-image']) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?>">
                             <div class="recent-post-single-title p-name" itemprop="name">
                                 <h3 class="clearfix" itemprop="headline">
                                     <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"

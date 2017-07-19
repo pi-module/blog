@@ -86,7 +86,7 @@ if (!empty($post['largeUrl'])) {
         </div>
         <div class="col-md-4">
             <div class="news-post-page-side">
-                <?php if ($post['image'] || (isset($attach['image']) && !empty($attach['image']))) { ?>
+                <?php if ($post['main_image'] || $post['additional_images']) { ?>
                     <div class="gallery">
                         <div class="postImageMain">
                             <div class="thumbnail u-photo">
@@ -99,6 +99,7 @@ if (!empty($post['largeUrl'])) {
                             </div>
                         </div>
                         <div class="postImageAttach row">
+                            <?php $story['additional_images'] = $post['additional_images']; ?>
                             <?php include $this->template('attach-image', 'front', 'news'); ?>
                         </div>
                     </div>
@@ -165,7 +166,7 @@ if (!empty($post['largeUrl'])) {
                         </div>
                     </div>
                 <?php } ?>
-                <?php if (isset($relateds) && !empty($relateds)) { ?>
+                <?php /* if (isset($relateds) && !empty($relateds)) { ?>
                     <div class="panel panel-default news-post-related">
                         <div class="panel-heading">
                             <?php _e('Related posts'); ?>
@@ -175,7 +176,7 @@ if (!empty($post['largeUrl'])) {
                                 <div class="list-group-item clearfix" itemscope itemtype="http://schema.org/Article">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <?php if ($related['image']) { ?>
+                                            <?php if ($related['main_image']) { ?>
                                                 <img itemprop="image" class="img-responsive u-photo"
                                                      src="<?php echo $this->escape($related['thumbUrl']); ?>"
                                                      alt="<?php echo $this->escape($related['title']); ?>"/>
@@ -193,7 +194,7 @@ if (!empty($post['largeUrl'])) {
                             <?php } ?>
                         </div>
                     </div>
-                <?php } ?>
+                <?php } */ ?>
             </div>
         </div>
     </div>

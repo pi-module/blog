@@ -84,6 +84,10 @@ class Search extends AbstractSearch
         // Get config
         $config = Pi::service('registry')->config->read('news');
 
+        if (isset($item['main_image']) && !empty($item['main_image'])) {
+            return (string) Pi::api('doc','media')->getSingleLinkUrl($item['main_image'])->setConfigModule('news')->thumb('medium');
+        }
+
         $image = '';
         if (isset($item['image']) && !empty($item['image'])) {
             $image = Pi::url(
