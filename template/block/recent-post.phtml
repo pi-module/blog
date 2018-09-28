@@ -11,7 +11,7 @@
                             <div class="col-md-4">
                                 <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
                                    href="<?php echo $this->escape($post['postUrl']); ?>">
-                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                    <img itemprop="image" class="img-fluid rounded u-photo"
                                          src="<?php echo $this->escape($post['thumbUrl']); ?>"
                                          alt="<?php echo $this->escape($post['title']); ?>"/>
                                 </a>
@@ -29,10 +29,10 @@
                             <div class="recent-post-single-information small">
                                 <ul class="clearfix list-inline recent-post-time">
                                     <?php if ($block['show-time']) { ?>
-                                    <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($post['time_create_view']); ?></li>
+                                    <li class="list-inline-item"><i class="fa fa-clock-o"></i> <?php echo $this->escape($post['time_create_view']); ?></li>
                                     <?php } ?>
                                     <?php if ($block['show-hits']) { ?>
-                                    <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($post['hits'])); ?></li>
+                                    <li class="list-inline-item"><i class="fa fa-eye"></i> <?php echo $this->escape(_number($post['hits'])); ?></li>
                                     <?php } ?>
                                 </ul>
                             </div>

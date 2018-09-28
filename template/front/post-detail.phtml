@@ -51,13 +51,13 @@ if (!empty($post['largeUrl'])) {
                     <div class="clearfix">
                         <ul class="list-inline text-muted">
                             <?php if ($configNews['show_date']) { ?>
-                                <li class="itemPostDate dt-published">
+                                <li class="list-inline-item itemPostDate dt-published">
                                     <i class="fa fa-calendar"></i> <?php _e('Time'); ?>
                                     : <?php echo $this->escape($post['time_publish_view']); ?>
                                 </li>
                             <?php } ?>
                             <?php if ($configNews['show_hits']) { ?>
-                                <li class="itemStats">
+                                <li class="list-inline-item itemStats">
                                     <i class="fa fa-eye"></i> <?php _e('Read'); ?>
                                     : <?php echo _number($this->escape($post['hits'])); ?> <?php _e('Times'); ?>
                                 </li>
@@ -92,7 +92,7 @@ if (!empty($post['largeUrl'])) {
                             <div class="thumbnail u-photo">
                                 <a href="<?php echo $post['largeUrl']; ?>"
                                    title="<?php echo $this->escape($post['title']); ?>">
-                                    <img itemprop="image" class="img-responsive"
+                                    <img itemprop="image" class="img-fluid"
                                          src="<?php echo $this->escape($post['mediumUrl']); ?>"
                                          alt="<?php echo $this->escape($post['title']); ?>"/>
                                 </a>
@@ -106,10 +106,10 @@ if (!empty($post['largeUrl'])) {
                 <?php } ?>
                 <div class="clearfix">
                     <ul class="list-inline">
-                        <li><?php if (!empty($vote)) {
+                        <li class="list-inline-item"><?php if (!empty($vote)) {
                                 include $this->template('votebar.phtml', 'front', 'vote');
                             } ?></li>
-                        <li><?php if (!empty($favourite)) {
+                        <li class="list-inline-item"><?php if (!empty($favourite)) {
                                 include $this->template('favouritebar.phtml', 'front', 'favourite');
                             } ?></li>
                     </ul>
@@ -119,7 +119,7 @@ if (!empty($post['largeUrl'])) {
                         <?php foreach ($post['authors'] as $author) { ?>
                             <div class="p-author clearfix" itemprop="publisher">
                                 <p class="text-center">
-                                    <img itemprop="image" class="img-circle"
+                                    <img itemprop="image" class="rounded-circle"
                                          src="<?php echo $this->escape($author['authorThumbUrl']); ?>"
                                          alt="<?php echo $this->escape($author['authorName']); ?>"/>
                                 </p>
@@ -136,11 +136,11 @@ if (!empty($post['largeUrl'])) {
                     </div>
                 <?php } ?>
                 <?php if ($configNews['show_tag'] && isset($tag) && !empty($tag)) { ?>
-                    <div class="well clearfix">
+                    <div class="card card-body bg-light mb-3 clearfix">
                         <h2><?php _e('Tags'); ?></h2>
                         <ul class="tagList list-inline">
                             <?php foreach ($tag as $term) { ?>
-                                <li class="tagItem">
+                                <li class="list-inline-item tagItem">
                                     <a title="<?php echo $this->escape($term); ?>"
                                        href="<?php echo Pi::url($this->url('', array('controller' => 'tag', 'action' => 'term', 'slug' => urlencode($term)))); ?>">
                                         <i class="fa fa-tag"></i> <?php echo $this->escape($term); ?>
@@ -153,10 +153,10 @@ if (!empty($post['largeUrl'])) {
                 <?php include $this->template('attribute', 'front', 'news'); ?>
                 <?php if ($configNews['social_sharing']) { ?>
                     <div class="clearfix">
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
+                        <div class="col-md-12 col-sm-12 col-12 socialSharingText">
                             <strong><?php _e('Share if you like'); ?></strong>
                         </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
+                        <div class="col-md-12 col-sm-12 col-12 socialSharing">
                             <?php echo $this->socialSharing(
                                 $configNews['social_sharing'],
                                 $this->escape($post['title']),
@@ -167,8 +167,8 @@ if (!empty($post['largeUrl'])) {
                     </div>
                 <?php } ?>
                 <?php /* if (isset($relateds) && !empty($relateds)) { ?>
-                    <div class="panel panel-default news-post-related">
-                        <div class="panel-heading">
+                    <div class="card card-body bg-light mb-3 news-post-related">
+                        <div class="card-heading">
                             <?php _e('Related posts'); ?>
                         </div>
                         <div class="list-group">
@@ -177,7 +177,7 @@ if (!empty($post['largeUrl'])) {
                                     <div class="row">
                                         <div class="col-md-4">
                                             <?php if ($related['main_image']) { ?>
-                                                <img itemprop="image" class="img-responsive u-photo"
+                                                <img itemprop="image" class="img-fluid u-photo"
                                                      src="<?php echo $this->escape($related['thumbUrl']); ?>"
                                                      alt="<?php echo $this->escape($related['title']); ?>"/>
                                             <?php } ?>
