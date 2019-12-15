@@ -70,6 +70,7 @@ class PostController extends ActionController
 
         // Set vote
         if ($configNews['vote_bar'] && Pi::service('module')->isActive('vote')) {
+            $vote           = [];
             $vote['point']  = $post['point'];
             $vote['count']  = $post['count'];
             $vote['item']   = $post['id'];
@@ -81,6 +82,7 @@ class PostController extends ActionController
 
         // favourite
         if ($configNews['favourite_bar'] && Pi::service('module')->isActive('favourite')) {
+            $favourite           = [];
             $favourite['is']     = Pi::api('favourite', 'favourite')->loadFavourite($module, 'story', $post['id']);
             $favourite['item']   = $post['id'];
             $favourite['table']  = 'story';
