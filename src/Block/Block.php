@@ -44,6 +44,7 @@ class Block
             }
         }
 
+        // Set url
         $block['morelink'] = Pi::url(
             Pi::service('url')->assemble(
                 'blog', [

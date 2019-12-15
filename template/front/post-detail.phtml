@@ -1,6 +1,7 @@
 <?php
 // Load front.css
 $this->css($this->assetModule('css/front.css'));
+
 // Image lightbox
 if ($configNews['image_lightbox']) {
     $script = <<<'EOT'
@@ -20,6 +21,7 @@ EOT;
     ));
     $this->footScript()->appendScript($script);
 }
+
 // Set Open Graph tags for meta
 $this->doctype('HTML5');
 $this->headMeta($this->escape($post['title']), 'og:title', 'property');
@@ -30,6 +32,7 @@ if (isset($post['text_summary']) && !empty($post['text_summary'])) {
 if (!empty($post['largeUrl'])) {
     $this->headMeta($this->escape($post['largeUrl']), 'og:image', 'property');
 }
+
 // Set twitter for meta
 $this->headMeta($this->escape($post['title']), 'twitter:title');
 if (isset($post['text_summary']) && !empty($post['text_summary'])) {
@@ -40,26 +43,21 @@ if (!empty($post['largeUrl'])) {
 }
 ?>
 <div class="clearfix" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="news-post-page clearfix h-entry">
-        <div class="col-md-8">
+    <div class="news-post-page clearfix row h-entry">
+        <div class="col-lg-8 col-md-8">
             <div class="news-post-page-body">
-                <div class="clearfix postHeader">
-                    <h1 class="p-name" itemprop="name headline">
-                        <?php echo $this->escape($post['title']); ?>
-                    </h1>
+                <div class="clearfix postHeader"><?php echo $this->escape($post['title']); ?></h1>
                     <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
                     <div class="clearfix">
                         <ul class="list-inline text-muted">
                             <?php if ($configNews['show_date']) { ?>
-                                <li class="itemPostDate dt-published">
-                                    <i class="fa fa-calendar"></i> <?php _e('Time'); ?>
-                                    : <?php echo $this->escape($post['time_publish_view']); ?>
+                                <li class="itemPostDate dt-published list-inline">
+                                    <i class="fa fa-calendar"></i> <?php echo $this->escape($post['time_publish_view']); ?>
                                 </li>
                             <?php } ?>
                             <?php if ($configNews['show_hits']) { ?>
                                 <li class="itemStats">
-                                    <i class="fa fa-eye"></i> <?php _e('Read'); ?>
-                                    : <?php echo _number($this->escape($post['hits'])); ?> <?php _e('Times'); ?>
+                                    <i class="fa fa-eye"></i> <?php echo _number($this->escape($post['hits'])); ?> <?php _e('Times'); ?>
                                 </li>
                             <?php } ?>
                         </ul>
@@ -80,38 +78,43 @@ if (!empty($post['largeUrl'])) {
                     <?php include $this->template('attach-video', 'front', 'news'); ?>
                     <?php include $this->template('attribute-video', 'front', 'news'); ?>
                     <?php include $this->template('attribute-file', 'front', 'news'); ?>
-                    <?php include $this->template('attach', 'front', 'news'); ?>
+                    <?php //include $this->template('attach', 'front', 'news'); ?>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-4">
             <div class="news-post-page-side">
                 <?php if ($post['main_image'] || $post['additional_images']) { ?>
                     <div class="gallery">
                         <div class="postImageMain">
                             <div class="thumbnail u-photo">
-                                <a href="<?php echo $post['largeUrl']; ?>"
-                                   title="<?php echo $this->escape($post['title']); ?>">
+                                <a href="<?php echo $post['largeUrl']; ?>" title="<?php echo $this->escape($post['title']); ?>">
                                     <img itemprop="image" class="img-responsive"
                                          src="<?php echo $this->escape($post['mediumUrl']); ?>"
                                          alt="<?php echo $this->escape($post['title']); ?>"/>
                                 </a>
                             </div>
                         </div>
-                        <div class="postImageAttach row">
-                            <?php $story['additional_images'] = $post['additional_images']; ?>
-                            <?php include $this->template('attach-image', 'front', 'news'); ?>
-                        </div>
+                        <?php if (isset($post['additional_images']) && !empty($post['additional_images'])) { ?>
+                            <div class="postImageAttach row">
+                                <?php $story['additional_images'] = $post['additional_images']; ?>
+                                <?php include $this->template('attach-image', 'front', 'news'); ?>
+                            </div>
+                        <?php } ?>
                     </div>
                 <?php } ?>
                 <div class="clearfix">
                     <ul class="list-inline">
-                        <li><?php if (!empty($vote)) {
+                        <li>
+                            <?php if (isset($vote) && !empty($vote)) {
                                 include $this->template('votebar.phtml', 'front', 'vote');
-                            } ?></li>
-                        <li><?php if (!empty($favourite)) {
+                            } ?>
+                        </li>
+                        <li>
+                            <?php if (isset($favourite) && !empty($favourite)) {
                                 include $this->template('favouritebar.phtml', 'front', 'favourite');
-                            } ?></li>
+                            } ?>
+                        </li>
                     </ul>
                 </div>
                 <?php if (!empty($post['authors']) && $configNews['show_author']) { ?>
@@ -123,7 +126,6 @@ if (!empty($post['largeUrl'])) {
                                          src="<?php echo $this->escape($author['authorThumbUrl']); ?>"
                                          alt="<?php echo $this->escape($author['authorName']); ?>"/>
                                 </p>
-
                                 <p class="text-center">
                                     <?php echo $this->escape($author['authorRole']); ?> :
                                     <a title="<?php echo $this->escape($author['authorName']); ?>"

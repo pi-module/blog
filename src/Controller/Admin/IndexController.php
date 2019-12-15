@@ -19,6 +19,5 @@ use Pi\Mvc\Controller\ActionController;
 class IndexController extends ActionController
 {
     public function indexAction()
-    {
-    }
+    {}
 }

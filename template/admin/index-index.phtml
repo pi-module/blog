@@ -1,4 +1,34 @@
 <div class="clearfix">
-    <h1><?php _e('Blog admin'); ?></h1>
-    <p><?php _e('Blog is part of news module, you need send post as story on news module and just select blog post type, all stories than have blog post type , will show on blog module front side'); ?></p>
+    <div class="card bg-light">
+        <div class="card-body">
+            <h1 class="card-title"><?php _e('Blog admin'); ?></h1>
+            <p class="card-text">
+                <?php _e(
+                    'Blog is part of news module, you need send post as story on news module and just select blog post type, all stories than have blog post type , will show on blog module front side'
+                ); ?>
+            </p>
+            <a href="<?php echo Pi::url(
+                $this->url(
+                    'admin', [
+                        'module'     => 'news',
+                        'controller' => 'story',
+                    ]
+                )
+            ); ?>" class="btn btn-primary btn-sm">
+                <?php _e('News story list'); ?>
+            </a>
+            <a href="<?php echo Pi::url(
+                $this->url(
+                    'admin', [
+                        'module'     => 'news',
+                        'controller' => 'story',
+                        'action'     => 'add',
+                        'type'       => 'post',
+                    ]
+                )
+            ); ?>" class="btn btn-primary btn-sm">
+                <?php _e('Add new blog post'); ?>
+            </a>
+        </div>
+    </div>
 </div>

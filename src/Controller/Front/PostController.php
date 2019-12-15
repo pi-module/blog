@@ -23,10 +23,13 @@ class PostController extends ActionController
         // Get info from url
         $slug   = $this->params('slug');
         $module = $this->params('module');
+
         // Get Module Config
         $configNews = Pi::service('registry')->config->read('news');
+
         // Find spost
         $post = Pi::api('post', 'blog')->getPost($slug, 'slug', 'full');
+
         // Check status
         if (!$post || $post['status'] != 1 || $post['type'] != 'post') {
             $this->getResponse()->setStatusCode(404);
@@ -34,6 +37,7 @@ class PostController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
+
         // Check time_publish
         if ($post['time_publish'] > time()) {
             $this->getResponse()->setStatusCode(401);
@@ -41,23 +45,29 @@ class PostController extends ActionController
             $this->view()->setLayout('layout-simple');
             return;
         }
+
         // Update Hits
         Pi::model('story', 'news')->increment('hits', ['id' => $post['id']]);
+        //Pi::model('link', 'news')->increment('hits', ['story' => $post['id']]);
+
         // Attached
         if ($configNews['show_attach'] && $post['attach']) {
             $attach = Pi::api('story', 'news')->AttachList($post['id']);
             $this->view()->assign('attach', $attach);
         }
+
         // Attribute
         if ($configNews['show_attribute'] && $post['attribute']) {
             $attribute = Pi::api('attribute', 'news')->Story($post['id'], $post['topic_main']);
             $this->view()->assign('attribute', $attribute);
         }
+
         // Tag
         if ($configNews['show_tag'] && Pi::service('module')->isActive('tag')) {
             $tag = Pi::service('tag')->get($module, $post['id'], '');
             $this->view()->assign('tag', $tag);
         }
+
         // Set vote
         if ($configNews['vote_bar'] && Pi::service('module')->isActive('vote')) {
             $vote['point']  = $post['point'];
@@ -68,6 +78,7 @@ class PostController extends ActionController
             $vote['type']   = 'star';
             $this->view()->assign('vote', $vote);
         }
+
         // favourite
         if ($configNews['favourite_bar'] && Pi::service('module')->isActive('favourite')) {
             $favourite['is']     = Pi::api('favourite', 'favourite')->loadFavourite($module, 'story', $post['id']);
@@ -76,6 +87,7 @@ class PostController extends ActionController
             $favourite['module'] = $module;
             $this->view()->assign('favourite', $favourite);
         }
+
         // Set view
         $this->view()->headTitle($post['seo_title']);
         $this->view()->headdescription($post['seo_description'], 'set');

@@ -23,8 +23,10 @@ class IndexController extends ActionController
         // Get info from url
         $module = $this->params('module');
         $page   = $this->params('page', 1);
+
         // Get config
         $config = Pi::service('registry')->config->read($module);
+
         // Set info
         $where  = [
             'status' => 1,
@@ -33,16 +35,20 @@ class IndexController extends ActionController
         $offset = (int)($page - 1) * $config['view_perpage'];
         $order  = ['time_publish DESC', 'id DESC'];
         $limit  = intval($config['view_perpage']);
+
         // Get list of post
         $postList = Pi::api('post', 'blog')->getPostList($where, $order, $offset, $limit, 'full', 'story');
+
         // Set template
         $template = [
             'module'     => 'blog',
             'controller' => 'index',
             'action'     => 'index',
         ];
+
         // Get paginator
         $paginator = Pi::api('api', 'news')->getStoryPaginator($template, $where, $page, $limit, 'story');
+
         // Set view
         $this->view()->setTemplate('post-list');
         $this->view()->assign('postList', $postList);

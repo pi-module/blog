@@ -26,7 +26,20 @@ class Post extends AbstractApi
 {
     public function getPost($parameter, $field = 'id', $type = 'full')
     {
+        // Get post
         $post = Pi::api('api', 'news')->getStorySingle($parameter, $field, $type);
+
+        // Set post url
+        $post['postUrl'] = Pi::url(
+            Pi::service('url')->assemble(
+                'blog', [
+                    'module'     => 'blog',
+                    'controller' => 'post',
+                    'slug'       => $post['slug'],
+                ]
+            )
+        );
+        
         return $post;
     }
 

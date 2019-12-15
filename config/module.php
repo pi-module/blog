@@ -22,6 +22,10 @@ return [
         'demo'        => 'http://pialog',
         'icon'        => 'fa-globe',
     ],
+    // Dependency
+    'dependency' => [
+        'news',
+    ],
     // Author information
     'author'   => [
         'Name'    => 'Hossein Azizabadi',

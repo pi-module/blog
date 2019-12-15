@@ -64,11 +64,6 @@ class Blog extends Standard
             }
         }
 
-        /* echo '<pre>';
-        print_r($matches);
-        print_r($parts);
-        echo '</pre>'; */
-
         return $matches;
     }
 
