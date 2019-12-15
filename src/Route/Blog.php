@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Blog\Route;
 
 use Pi\Mvc\Router\Http\Standard;
@@ -18,17 +19,20 @@ class Blog extends Standard
 {
     /**
      * Default values.
+     *
      * @var array
      */
-    protected $defaults = array(
-        'module' => 'blog',
-        'controller' => 'index',
-        'action' => 'index'
-    );
+    protected $defaults
+        = [
+            'module'     => 'blog',
+            'controller' => 'index',
+            'action'     => 'index',
+        ];
 
-    protected $controllerList = array(
-        'index', 'post'
-    );
+    protected $controllerList
+        = [
+            'index', 'post',
+        ];
 
     /**
      * {@inheritDoc}
@@ -40,8 +44,8 @@ class Blog extends Standard
      */
     protected function parse($path)
     {
-        $matches = array();
-        $parts = array_filter(explode($this->structureDelimiter, $path));
+        $matches = [];
+        $parts   = array_filter(explode($this->structureDelimiter, $path));
 
         // Set controller
         $matches = array_merge($this->defaults, $matches);
@@ -71,16 +75,16 @@ class Blog extends Standard
     /**
      * assemble(): Defined by Route interface.
      *
-     * @see    Route::assemble()
-     * @param  array $params
-     * @param  array $options
+     * @param array $params
+     * @param array $options
+     *
      * @return string
+     * @see    Route::assemble()
      */
     public function assemble(
-        array $params = array(),
-        array $options = array()
-    )
-    {
+        array $params = [],
+        array $options = []
+    ) {
         $mergedParams = array_merge($this->defaults, $params);
         if (!$mergedParams) {
             return $this->prefix;

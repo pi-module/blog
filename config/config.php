@@ -10,61 +10,61 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
-    'category' => array(
-        array(
+return [
+    'category' => [
+        [
             'title' => _a('Admin'),
-            'name' => 'admin'
-        ),
-        array(
+            'name'  => 'admin',
+        ],
+        [
             'title' => _a('View'),
-            'name' => 'view'
-        ),
-        array(
+            'name'  => 'view',
+        ],
+        [
             'title' => _a('Social'),
-            'name' => 'social'
-        ),
-    ),
-    'item' => array(
+            'name'  => 'social',
+        ],
+    ],
+    'item'     => [
         // Admin
-        'admin_perpage' => array(
-            'category' => 'admin',
-            'title' => _a('Perpage'),
+        'admin_perpage'          => [
+            'category'    => 'admin',
+            'title'       => _a('Perpage'),
             'description' => '',
-            'edit' => 'text',
-            'filter' => 'number_int',
-            'value' => 10
-        ),
+            'edit'        => 'text',
+            'filter'      => 'number_int',
+            'value'       => 10,
+        ],
         // View
-        'view_perpage' => array(
-            'category' => 'view',
-            'title' => _a('Perpage'),
+        'view_perpage'           => [
+            'category'    => 'view',
+            'title'       => _a('Perpage'),
             'description' => '',
-            'edit' => 'text',
-            'filter' => 'number_int',
-            'value' => 10
-        ),
+            'edit'        => 'text',
+            'filter'      => 'number_int',
+            'value'       => 10,
+        ],
         // Social
-        'social_sharing' => array(
-            'title' => _t('Social sharing items'),
+        'social_sharing'         => [
+            'title'       => _t('Social sharing items'),
             'description' => '',
-            'edit' => array(
-                'type' => 'multi_checkbox',
-                'options' => array(
+            'edit'        => [
+                'type'    => 'multi_checkbox',
+                'options' => [
                     'options' => Pi::service('social_sharing')->getList(),
-                ),
-            ),
-            'filter' => 'array',
-            'category' => 'social',
-        ),
+                ],
+            ],
+            'filter'      => 'array',
+            'category'    => 'social',
+        ],
         // head_meta
-        'text_description_index' => array(
-            'category' => 'head_meta',
-            'title' => _a('Description for index page'),
+        'text_description_index' => [
+            'category'    => 'head_meta',
+            'title'       => _a('Description for index page'),
             'description' => '',
-            'edit' => 'textarea',
-            'filter' => 'string',
-            'value' => ''
-        ),
-    ),
-);
+            'edit'        => 'textarea',
+            'filter'      => 'string',
+            'value'       => '',
+        ],
+    ],
+];

@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Blog\Controller\Front;
 
 use Pi;
@@ -20,7 +21,7 @@ class PostController extends ActionController
     public function indexAction()
     {
         // Get info from url
-        $slug = $this->params('slug');
+        $slug   = $this->params('slug');
         $module = $this->params('module');
         // Get Module Config
         $configNews = Pi::service('registry')->config->read('news');
@@ -41,7 +42,7 @@ class PostController extends ActionController
             return;
         }
         // Update Hits
-        Pi::model('story', 'news')->increment('hits', array('id' => $post['id']));
+        Pi::model('story', 'news')->increment('hits', ['id' => $post['id']]);
         // Attached
         if ($configNews['show_attach'] && $post['attach']) {
             $attach = Pi::api('story', 'news')->AttachList($post['id']);
@@ -59,19 +60,19 @@ class PostController extends ActionController
         }
         // Set vote
         if ($configNews['vote_bar'] && Pi::service('module')->isActive('vote')) {
-            $vote['point'] = $post['point'];
-            $vote['count'] = $post['count'];
-            $vote['item'] = $post['id'];
-            $vote['table'] = 'story';
+            $vote['point']  = $post['point'];
+            $vote['count']  = $post['count'];
+            $vote['item']   = $post['id'];
+            $vote['table']  = 'story';
             $vote['module'] = $module;
-            $vote['type'] = 'star';
+            $vote['type']   = 'star';
             $this->view()->assign('vote', $vote);
         }
         // favourite
         if ($configNews['favourite_bar'] && Pi::service('module')->isActive('favourite')) {
-            $favourite['is'] = Pi::api('favourite', 'favourite')->loadFavourite($module, 'story', $post['id']);
-            $favourite['item'] = $post['id'];
-            $favourite['table'] = 'story';
+            $favourite['is']     = Pi::api('favourite', 'favourite')->loadFavourite($module, 'story', $post['id']);
+            $favourite['item']   = $post['id'];
+            $favourite['table']  = 'story';
             $favourite['module'] = $module;
             $this->view()->assign('favourite', $favourite);
         }

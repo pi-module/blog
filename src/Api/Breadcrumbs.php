@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Blog\Api;
 
 use Pi;
@@ -29,29 +30,33 @@ class Breadcrumbs extends AbstractBreadcrumbs
         // Make tree
         if (!empty($params['controller']) && $params['controller'] != 'index') {
             // Set index
-            $result = array(
-                array(
+            $result = [
+                [
                     'label' => $moduleData['title'],
-                    'href' => Pi::url(Pi::service('url')->assemble('blog', array(
-                        'module' => $this->getModule(),
-                    ))),
-                ),
-            );
+                    'href'  => Pi::url(
+                        Pi::service('url')->assemble(
+                            'blog', [
+                            'module' => $this->getModule(),
+                        ]
+                        )
+                    ),
+                ],
+            ];
             // Set
             switch ($params['controller']) {
                 case 'post':
-                    $post = Pi::api('api', 'news')->getStorySingle($params['slug'], 'slug', 'light');
-                    $result[] = array(
+                    $post     = Pi::api('api', 'news')->getStorySingle($params['slug'], 'slug', 'light');
+                    $result[] = [
                         'label' => $post['title'],
-                    );
+                    ];
                     break;
             }
         } else {
-            $result = array(
-                array(
+            $result = [
+                [
                     'label' => $moduleData['title'],
-                ),
-            );
+                ],
+            ];
         }
         return $result;
     }

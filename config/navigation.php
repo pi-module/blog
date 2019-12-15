@@ -10,18 +10,18 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
+return [
     // Admin section
-    'admin' => array(
-        'index' => array(
-            'label' => _a('Blog'),
-            'permission' => array(
+    'admin' => [
+        'index' => [
+            'label'      => _a('Blog'),
+            'permission' => [
                 'resource' => 'index',
-            ),
-            'route' => 'admin',
-            'module' => 'blog',
+            ],
+            'route'      => 'admin',
+            'module'     => 'blog',
             'controller' => 'index',
-            'action' => 'index',
-        ),
-    ),
-);
+            'action'     => 'index',
+        ],
+    ],
+];

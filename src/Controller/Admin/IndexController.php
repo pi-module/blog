@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Blog\Controller\Admin;
 
 use Pi;
@@ -18,5 +19,6 @@ use Pi\Mvc\Controller\ActionController;
 class IndexController extends ActionController
 {
     public function indexAction()
-    {}
+    {
+    }
 }

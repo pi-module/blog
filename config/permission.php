@@ -10,22 +10,22 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return array(
+return [
     // Front section
-    'front' => array(
-        'public' => array(
-            'title' => _a('Global public resource'),
-            'access' => array(
+    'front' => [
+        'public' => [
+            'title'  => _a('Global public resource'),
+            'access' => [
                 'guest',
                 'member',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
     // Admin section
-    'admin' => array(
-        'index' => array(
-            'title' => _a('Index'),
-            'access' => array(),
-        ),
-    ),
-);
+    'admin' => [
+        'index' => [
+            'title'  => _a('Index'),
+            'access' => [],
+        ],
+    ],
+];

@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Blog\Api;
 
 use Pi;
@@ -30,20 +31,20 @@ class Comment extends AbstractComment
     public function get($item)
     {
 
-        $result = array();
-        $items = (array)$item;
+        $result = [];
+        $items  = (array)$item;
 
         // Set options
         $story = Pi::api('post', 'blog')->getListFromId($items);
 
         foreach ($items as $id) {
-            $result[$id] = array(
-                'id' => $story[$id]['id'],
+            $result[$id] = [
+                'id'    => $story[$id]['id'],
                 'title' => $story[$id]['title'],
-                'url' => $story[$id]['postUrl'],
-                'uid' => $story[$id]['uid'],
-                'time' => $story[$id]['time_create'],
-            );
+                'url'   => $story[$id]['postUrl'],
+                'uid'   => $story[$id]['uid'],
+                'time'  => $story[$id]['time_create'],
+            ];
         }
 
         if (is_scalar($item)) {

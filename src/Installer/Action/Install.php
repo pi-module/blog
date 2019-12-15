@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Blog\Installer\Action;
 
 use Pi;
@@ -21,7 +22,7 @@ class Install extends BasicInstall
     protected function attachDefaultListeners()
     {
         $events = $this->events;
-        $events->attach('install.pre', array($this, 'checkConflicts'), 1000);
+        $events->attach('install.pre', [$this, 'checkConflicts'], 1000);
         parent::attachDefaultListeners();
         return $this;
     }
@@ -30,16 +31,19 @@ class Install extends BasicInstall
      * Check other modules in conflict
      *
      * @param Event $e
+     *
      * @return bool
      */
     public function checkConflicts(Event $e)
     {
         $modules = Pi::registry('module')->read();
         if (!isset($modules['news'])) {
-            $this->setResult('event', array(
-                'status'    => false,
-                'message'   => 'install news module first',
-            ));
+            $this->setResult(
+                'event', [
+                'status'  => false,
+                'message' => 'install news module first',
+            ]
+            );
 
             return false;
         }
