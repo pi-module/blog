@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: support\n"
-"POT-Creation-Date: 2016-03-22 10:23+0430\n"
+"POT-Creation-Date: 2019-12-15 13:28+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -9,30 +9,30 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _e;__\n"
 "X-Poedit-Basepath: ../..\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: src/Controller/Front/IndexController.php:49
+#: src/Controller/Front/IndexController.php:56
 msgid "Blog post list"
 msgstr "فهرست پست های وبلاگ"
 
-#: src/Controller/Front/PostController.php:32
+#: src/Controller/Front/PostController.php:36
 msgid "The post not found."
 msgstr "پست یافت نشد"
 
-#: src/Controller/Front/PostController.php:39
+#: src/Controller/Front/PostController.php:44
 msgid "The post not publish."
 msgstr "این پست منتشر نشده است"
 
-#: template/admin/index-index.phtml:2
+#: template/admin/index-index.phtml:4
 msgid "Blog admin"
 msgstr "مدیریت وبلاگ"
 
-#: template/admin/index-index.phtml:3
+#: template/admin/index-index.phtml:7
 msgid ""
 "Blog is part of news module, you need send post as story on news module and "
 "just select blog post type, all stories than have blog post type , will show "
@@ -43,29 +43,34 @@ msgstr ""
 "وبلاگ انتخاب کنید.همه مطالب که به صورت پست وبلاگ ارسال شده باشند در بخش "
 "کاربری ماژول وبلاگ نمایش داده می شوند"
 
-#: template/front/post-detail.phtml:55
-msgid "Time"
-msgstr "زمان"
+#: template/admin/index-index.phtml:18
+msgid "News story list"
+msgstr "فهرست مطالب"
 
-#: template/front/post-detail.phtml:61
-msgid "Read"
-msgstr "خوانده شده"
+#: template/admin/index-index.phtml:30
+msgid "Add new blog post"
+msgstr "درج پست بلاک جدید"
 
-#: template/front/post-detail.phtml:62
+#: template/front/post-detail.phtml:60
 msgid "Times"
 msgstr "بار"
 
-#: template/front/post-detail.phtml:139
+#: template/front/post-detail.phtml:142
 msgid "Tags"
 msgstr "برچسب ها"
 
-#: template/front/post-detail.phtml:156
+#: template/front/post-detail.phtml:159
 msgid "Share if you like"
 msgstr "اشتراک گذاری در شبکه های اجتماعی"
 
-#: template/front/post-detail.phtml:171
-msgid "Related posts"
-msgstr "پست های مشابه"
+#~ msgid "Time"
+#~ msgstr "زمان"
+
+#~ msgid "Read"
+#~ msgstr "خوانده شده"
+
+#~ msgid "Related posts"
+#~ msgstr "پست های مشابه"
 
 #~ msgid "All Feed sources update successfully."
 #~ msgstr "تمام خوارک ها از سایت های منبع به روز شد"
@@ -505,9 +510,6 @@ msgstr "پست های مشابه"
 
 #~ msgid "Visit"
 #~ msgstr "بازدید"
-
-#~ msgid "Category list"
-#~ msgstr "فهرست شاخه ها"
 
 #~ msgid "Mian options"
 #~ msgstr "گزینه های اصلی"
