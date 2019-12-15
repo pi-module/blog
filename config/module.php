@@ -15,7 +15,7 @@ return [
     'meta'     => [
         'title'       => _a('Blog'),
         'description' => _a('Simple blog system'),
-        'version'     => '0.0.6',
+        'version'     => '1.0.0',
         'license'     => 'New BSD',
         'logo'        => 'image/logo.png',
         'readme'      => 'docs/readme.txt',

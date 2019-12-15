@@ -37,9 +37,9 @@ class Block
 
         foreach ($posts as $post) {
             $block['resources'][$post['id']] = $post;
-            if (!empty($block['textlimit']) && $block['textlimit'] > 0) {
+            if (!empty($block['text_limit']) && $block['text_limit'] > 0) {
                 $block['resources'][$post['id']]['text_summary'] = mb_substr(
-                        strip_tags($block['resources'][$post['id']]['text_summary']), 0, $block['textlimit'], 'utf-8'
+                        strip_tags($block['resources'][$post['id']]['text_summary']), 0, $block['text_limit'], 'utf-8'
                     ) . "...";
             }
         }

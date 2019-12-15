@@ -1,4 +1,4 @@
-<?php if ($block['block-effect']) {
+<?php if ($block['block_effect']) {
     $this->css($this->assetModule('css/block.css', 'blog'));
 } ?>
 <div class="blog-block">
@@ -7,7 +7,7 @@
             <?php foreach ($block['resources'] as $post) { ?>
                 <div class="recent-post-single clearfix h-post" itemprop="liveBlogUpdate" itemscope itemtype="http://schema.org/BlogPosting">
                     <div class="row">
-                        <?php if ($post['main_image'] && $block['show-image']) { ?>
+                        <?php if ($post['main_image'] && $block['view_image']) { ?>
                             <div class="col-md-4">
                                 <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
                                    href="<?php echo $this->escape($post['postUrl']); ?>">
@@ -17,7 +17,7 @@
                                 </a>
                             </div>
                         <?php } ?>
-                        <div class="<?php if ($post['main_image'] && $block['show-image']) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?>">
+                        <div class="<?php if ($post['main_image'] && $block['view_image']) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?>">
                             <div class="recent-post-single-title p-name" itemprop="name">
                                 <h3 class="clearfix" itemprop="headline">
                                     <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
@@ -28,15 +28,15 @@
                             </div>
                             <div class="recent-post-single-information small">
                                 <ul class="clearfix list-inline recent-post-time">
-                                    <?php if ($block['show-time']) { ?>
+                                    <?php if ($block['view_time']) { ?>
                                     <li><i class="fa fa-clock-o"></i> <?php echo $this->escape($post['time_create_view']); ?></li>
                                     <?php } ?>
-                                    <?php if ($block['show-hits']) { ?>
+                                    <?php if ($block['view_hits']) { ?>
                                     <li><i class="fa fa-eye"></i> <?php echo $this->escape(_number($post['hits'])); ?></li>
                                     <?php } ?>
                                 </ul>
                             </div>
-                            <?php if (!empty($post['text_summary']) && $block['show-summary']) { ?>
+                            <?php if (!empty($post['text_summary']) && $block['view_summary']) { ?>
                                 <div class="recent-post-single-summery clearfix p-summary" itemprop="articleBody description">
                                     <?php echo $post['text_summary']; ?>
                                 </div>
@@ -46,7 +46,7 @@
                 </div>
             <?php } ?>
         </div>
-        <?php if ($block['show-morelink']) { ?>
+        <?php if ($block['view_more_link']) { ?>
             <div class="recent-event-more clearfix">
                 <a title="<?php echo _b('More posts'); ?>"
                    href="<?php echo $this->escape($block['morelink']); ?>"><?php echo _b('More posts'); ?></a>
