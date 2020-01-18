@@ -54,5 +54,6 @@ class IndexController extends ActionController
         $this->view()->assign('postList', $postList);
         $this->view()->assign('paginator', $paginator);
         $this->view()->assign('title', __('Blog post list'));
+        $this->view()->assign('config', $config);
     }
 }

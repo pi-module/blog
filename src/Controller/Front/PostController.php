@@ -68,6 +68,12 @@ class PostController extends ActionController
             $this->view()->assign('tag', $tag);
         }
 
+        // Author
+        if ($configNews['show_author']) {
+            $author = Pi::api('author', 'news')->getStorySingle($post['id']);
+            $this->view()->assign('authors', $author);
+        }
+
         // Set vote
         if ($configNews['vote_bar'] && Pi::service('module')->isActive('vote')) {
             $vote           = [];
