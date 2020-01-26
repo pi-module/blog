@@ -88,9 +88,9 @@ if (!empty($post['largeUrl'])) {
                 <?php if ($post['main_image'] || $post['additional_images']) { ?>
                     <div class="gallery">
                         <div class="postImageMain">
-                            <div class="thumbnail u-photo">
+                            <div class="u-photo">
                                 <a href="<?php echo $post['largeUrl']; ?>" title="<?php echo $this->escape($post['title']); ?>">
-                                    <img itemprop="image" class="img-responsive"
+                                    <img itemprop="image" class="img-fluid"
                                          src="<?php echo $this->escape($post['mediumUrl']); ?>"
                                          alt="<?php echo $this->escape($post['title']); ?>"/>
                                 </a>
