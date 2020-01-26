@@ -46,17 +46,18 @@ if (!empty($post['largeUrl'])) {
     <div class="news-post-page clearfix row h-entry">
         <div class="col-lg-8 col-md-8">
             <div class="news-post-page-body">
-                <div class="clearfix postHeader"><?php echo $this->escape($post['title']); ?></h1>
+                <div class="clearfix postHeader">
+                    <h1><?php echo $this->escape($post['title']); ?></h1>
                     <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
                     <div class="clearfix">
                         <ul class="list-inline text-muted">
                             <?php if ($configNews['show_date']) { ?>
-                                <li class="itemPostDate dt-published list-inline">
+                                <li class="itemPostDate dt-published list-inline-item">
                                     <i class="fa fa-calendar"></i> <?php echo $this->escape($post['time_publish_view']); ?>
                                 </li>
                             <?php } ?>
                             <?php if ($configNews['show_hits']) { ?>
-                                <li class="itemStats">
+                                <li class="itemStats list-inline-item">
                                     <i class="fa fa-eye"></i> <?php echo _number($this->escape($post['hits'])); ?> <?php _e('Times'); ?>
                                 </li>
                             <?php } ?>
@@ -105,12 +106,12 @@ if (!empty($post['largeUrl'])) {
                 <?php } ?>
                 <div class="clearfix">
                     <ul class="list-inline">
-                        <li>
+                        <li class="list-inline-item">
                             <?php if (isset($vote) && !empty($vote)) {
                                 include $this->template('votebar.phtml', 'front', 'vote');
                             } ?>
                         </li>
-                        <li>
+                        <li class="list-inline-item">
                             <?php if (isset($favourite) && !empty($favourite)) {
                                 include $this->template('favouritebar.phtml', 'front', 'favourite');
                             } ?>
@@ -142,7 +143,7 @@ if (!empty($post['largeUrl'])) {
                         <h2><?php _e('Tags'); ?></h2>
                         <ul class="tagList list-inline">
                             <?php foreach ($tag as $term) { ?>
-                                <li class="tagItem">
+                                <li class="tagItem list-inline-item">
                                     <a title="<?php echo $this->escape($term); ?>"
                                        href="<?php echo Pi::url($this->url('', array('controller' => 'tag', 'action' => 'term', 'slug' => urlencode($term)))); ?>">
                                         <i class="fa fa-tag"></i> <?php echo $this->escape($term); ?>
