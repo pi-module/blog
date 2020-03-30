@@ -39,7 +39,11 @@ class Post extends AbstractApi
                 ]
             )
         );
-        
+
+        if (isset($post['storyUrl'])) {
+            unset($post['storyUrl']);
+        }
+
         return $post;
     }
 
@@ -58,6 +62,10 @@ class Post extends AbstractApi
                 ]
                 )
             );
+
+            if (isset($postList[$single['id']]['storyUrl'])) {
+                unset($postList[$single['id']]['storyUrl']);
+            }
         }
 
         return $postList;

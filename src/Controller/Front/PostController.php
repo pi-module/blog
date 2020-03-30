@@ -27,7 +27,7 @@ class PostController extends ActionController
         // Get Module Config
         $configNews = Pi::service('registry')->config->read('news');
 
-        // Find spost
+        // Find post
         $post = Pi::api('post', 'blog')->getPost($slug, 'slug', 'full');
 
         // Check status
