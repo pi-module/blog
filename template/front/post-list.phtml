@@ -17,7 +17,7 @@
                             <?php if ($post['main_image']) { ?>
                                 <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
                                    href="<?php echo $this->escape($post['postUrl']); ?>">
-                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                    <img itemprop="image" class="img-fluid u-photo"
                                          src="<?php echo $this->escape($post['thumbUrl']); ?>"
                                          alt="<?php echo $this->escape($post['title']); ?>"/>
                                 </a>
