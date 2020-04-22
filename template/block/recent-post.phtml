@@ -9,9 +9,9 @@
                     <div class="row">
                         <?php if ($post['main_image'] && $block['view_image']) { ?>
                             <div class="col-md-4">
-                                <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
+                                <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>"
                                    href="<?php echo $this->escape($post['postUrl']); ?>">
-                                    <img itemprop="image" class="img-responsive img-rounded u-photo"
+                                    <img itemprop="image" class="img-fluid u-photo"
                                          src="<?php echo $this->escape($post['thumbUrl']); ?>"
                                          alt="<?php echo $this->escape($post['title']); ?>"/>
                                 </a>
@@ -20,7 +20,7 @@
                         <div class="<?php if ($post['main_image'] && $block['view_image']) { ?>col-md-8<?php } else { ?>col-md-12<?php } ?>">
                             <div class="recent-post-single-title p-name" itemprop="name">
                                 <h3 class="clearfix" itemprop="headline">
-                                    <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
+                                    <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>"
                                        href="<?php echo $this->escape($post['postUrl']); ?>">
                                         <?php echo $this->escape($post['title']); ?>
                                     </a>
@@ -47,6 +47,16 @@
                                     <?php echo $post['text_summary']; ?>
                                 </div>
                             <?php } ?>
+                        </div>
+                    </div>
+                    <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
+                    <meta itemprop="dateModified" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_update'])); ?>" />
+                    <meta itemprop="author" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+                    <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+                        <meta itemprop="url" content="<?php echo Pi::url($this->url('home')); ?>" />
+                        <meta itemprop="name" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+                        <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                            <meta itemprop="url" content="<?php echo $this->logo(); ?>" />
                         </div>
                     </div>
                 </div>

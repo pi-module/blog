@@ -46,7 +46,7 @@ if (!empty($post['largeUrl'])) {
     <div class="news-post-page clearfix row h-entry">
         <div class="col-lg-8 col-md-8">
             <div class="news-post-page-body">
-                <div class="clearfix postHeader">
+                <div class="clearfix postHeader" itemprop="headline">
                     <h1><?php echo $this->escape($post['title']); ?></h1>
                     <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
                     <div class="clearfix">
@@ -98,8 +98,23 @@ if (!empty($post['largeUrl'])) {
                         </div>
                         <?php if (isset($post['additional_images']) && !empty($post['additional_images'])) { ?>
                             <div class="postImageAttach row">
-                                <?php $story['additional_images'] = $post['additional_images']; ?>
-                                <?php include $this->template('attach-image', 'front', 'news'); ?>
+                                <?php $galleryImages = Pi::api('doc', 'media')->getGalleryLinkData($post['additional_images'], [320], null, null, false, [], 'news') ?>
+                                <?php $galleryImagesBig = Pi::api('doc', 'media')->getGalleryLinkData($post['additional_images'], 'large', null, null, false, [], 'news') ?>
+                                <?php if ($galleryImages) { ?>
+                                    <div class="clearfix">
+                                        <div class="attach-image row">
+                                            <?php foreach ($galleryImages as $key => $galleryImage) { ?>
+                                                <div class="col-lg-6 col-md-6 col-6">
+                                                    <div class="u-photo m-3">
+                                                        <a href="<?php echo $galleryImagesBig[$key]['resized_url']; ?>" title="<?php echo $this->escape($galleryImage['title']); ?><?php if ($galleryImage['copyright']) echo ' - ' . $galleryImage['copyright'] ?>">
+                                                            <img itemprop="image" class="img-fluid" src="<?php echo $galleryImage['resized_url'][320]; ?>" alt="<?php echo $this->escape($galleryImage['title']); ?>"/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                <?php }  ?>
                             </div>
                         <?php } ?>
                     </div>
@@ -198,6 +213,18 @@ if (!empty($post['largeUrl'])) {
                         </div>
                     </div>
                 <?php } */ ?>
+            </div>
+        </div>
+        <meta itemprop="url" content="<?php echo $this->escape($post['postUrl']); ?>" />
+        <meta itemprop="mainEntityOfPage" content="<?php echo $this->escape($post['postUrl']); ?>" />
+        <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
+        <meta itemprop="dateModified" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_update'])); ?>" />
+        <meta itemprop="author" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+        <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+            <meta itemprop="url" content="<?php echo Pi::url($this->url('home')); ?>" />
+            <meta itemprop="name" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+            <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                <meta itemprop="url" content="<?php echo $this->logo(); ?>" />
             </div>
         </div>
     </div>

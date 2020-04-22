@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-lg-2 col-md-3">
                             <?php if ($post['main_image']) { ?>
-                                <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
+                                <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>"
                                    href="<?php echo $this->escape($post['postUrl']); ?>">
                                     <img itemprop="image" class="img-fluid u-photo"
                                          src="<?php echo $this->escape($post['thumbUrl']); ?>"
@@ -26,7 +26,7 @@
                         <div class="col-lg-10 col-md-9">
                             <div class="post-single-title p-name" itemprop="name">
                                 <h2 class="clearfix" itemprop="headline">
-                                    <a itemprop="url" title="<?php echo $this->escape($post['title']); ?>"
+                                    <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>"
                                        href="<?php echo $this->escape($post['postUrl']); ?>">
                                         <?php echo $this->escape($post['title']); ?>
                                     </a>
@@ -50,6 +50,16 @@
                                     <?php echo $post['text_summary']; ?>
                                 </div>
                             <?php } ?>
+                        </div>
+                    </div>
+                    <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
+                    <meta itemprop="dateModified" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_update'])); ?>" />
+                    <meta itemprop="author" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+                    <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+                        <meta itemprop="url" content="<?php echo Pi::url($this->url('home')); ?>" />
+                        <meta itemprop="name" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+                        <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                            <meta itemprop="url" content="<?php echo $this->logo(); ?>" />
                         </div>
                     </div>
                 </div>
