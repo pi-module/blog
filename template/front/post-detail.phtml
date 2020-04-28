@@ -73,6 +73,11 @@ if (!empty($post['largeUrl'])) {
                 <div class="clearfix e-content" itemprop="description">
                     <?php echo $post['text_description']; ?>
                 </div>
+                <?php if ($configNews['admin_text_extra'] && !empty($post['text_html'])) { ?>
+                    <div class="clearfix">
+                        <?php echo $post['text_html']; ?>
+                    </div>
+                <?php } ?>
                 <div class="postMedia clearfix">
                     <?php include $this->template('attach-audio', 'front', 'news'); ?>
                     <?php include $this->template('attribute-audio', 'front', 'news'); ?>
