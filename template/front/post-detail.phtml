@@ -43,183 +43,173 @@ if (!empty($post['largeUrl'])) {
 }
 ?>
 <div class="clearfix" itemscope itemtype="http://schema.org/BlogPosting">
-    <div class="news-post-page clearfix row h-entry">
-        <div class="col-lg-8 col-md-8">
-            <div class="news-post-page-body">
-                <div class="clearfix postHeader" itemprop="headline">
-                    <h1><?php echo $this->escape($post['title']); ?></h1>
-                    <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
-                    <div class="clearfix">
-                        <ul class="list-inline text-muted">
-                            <?php if ($configNews['show_date']) { ?>
-                                <li class="itemPostDate dt-published list-inline-item">
-                                    <i class="fa fa-calendar"></i> <?php echo $this->escape($post['time_publish_view']); ?>
-                                </li>
-                            <?php } ?>
-                            <?php if ($configNews['show_hits']) { ?>
-                                <li class="itemStats list-inline-item">
-                                    <i class="fa fa-eye"></i> <?php echo _number($this->escape($post['hits'])); ?> <?php _e('Times'); ?>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-                </div>
-                <?php if ($post['subtitle']) { ?>
-                    <p><?php echo $this->escape($post['subtitle']); ?></p>
-                <?php } ?>
-                <div class="clearfix p-summary" itemprop="description">
-                    <?php echo $post['text_summary']; ?>
-                </div>
-                <div class="clearfix e-content" itemprop="description">
-                    <?php echo $post['text_description']; ?>
-                </div>
-                <?php if ($configNews['admin_text_extra'] && !empty($post['text_html'])) { ?>
-                    <div class="clearfix">
-                        <?php echo $post['text_html']; ?>
-                    </div>
-                <?php } ?>
-                <div class="postMedia clearfix">
-                    <?php include $this->template('attach-audio', 'front', 'news'); ?>
-                    <?php include $this->template('attribute-audio', 'front', 'news'); ?>
-                    <?php include $this->template('attach-video', 'front', 'news'); ?>
-                    <?php include $this->template('attribute-video', 'front', 'news'); ?>
-                    <?php include $this->template('attribute-file', 'front', 'news'); ?>
-                    <?php //include $this->template('attach', 'front', 'news'); ?>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4">
-            <div class="news-post-page-side">
-                <?php if ($post['main_image'] || $post['additional_images']) { ?>
-                    <div class="gallery">
-                        <div class="postImageMain">
-                            <div class="u-photo">
-                                <a href="<?php echo $post['largeUrl']; ?>" title="<?php echo $this->escape($post['title']); ?>">
-                                    <img itemprop="image" class="img-fluid"
-                                         src="<?php echo $this->escape($post['mediumUrl']); ?>"
-                                         alt="<?php echo $this->escape($post['title']); ?>"/>
-                                </a>
-                            </div>
+    <div class="news-post-page clearfix h-entry">
+        <div class="clearfix postHeader" itemprop="headline">
+            <?php if ($post['main_image'] || $post['additional_images']) { ?>
+                <div class="gallery bg-light">
+                    <div class="postImageMain">
+                        <div class="u-photo text-center mb-3">
+                            <a href="<?php echo $post['largeUrl']; ?>" title="<?php echo $this->escape($post['title']); ?>">
+                                <img itemprop="image" class="img-fluid"
+                                     src="<?php echo $this->escape($post['largeUrl']); ?>"
+                                     alt="<?php echo $this->escape($post['title']); ?>"/>
+                            </a>
                         </div>
-                        <?php if (isset($post['additional_images']) && !empty($post['additional_images'])) { ?>
-                            <div class="postImageAttach row">
-                                <?php $galleryImages = Pi::api('doc', 'media')->getGalleryLinkData($post['additional_images'], [320], null, null, false, [], 'news') ?>
-                                <?php $galleryImagesBig = Pi::api('doc', 'media')->getGalleryLinkData($post['additional_images'], 'large', null, null, false, [], 'news') ?>
-                                <?php if ($galleryImages) { ?>
-                                    <div class="clearfix">
-                                        <div class="attach-image row">
-                                            <?php foreach ($galleryImages as $key => $galleryImage) { ?>
-                                                <div class="col-lg-6 col-md-6 col-6">
-                                                    <div class="u-photo m-3">
-                                                        <a href="<?php echo $galleryImagesBig[$key]['resized_url']; ?>" title="<?php echo $this->escape($galleryImage['title']); ?><?php if ($galleryImage['copyright']) echo ' - ' . $galleryImage['copyright'] ?>">
-                                                            <img itemprop="image" class="img-fluid" src="<?php echo $galleryImage['resized_url'][320]; ?>" alt="<?php echo $this->escape($galleryImage['title']); ?>"/>
-                                                        </a>
-                                                    </div>
+                    </div>
+                    <?php if (isset($post['additional_images']) && !empty($post['additional_images'])) { ?>
+                        <div class="postImageAttach row">
+                            <?php $galleryImages = Pi::api('doc', 'media')->getGalleryLinkData($post['additional_images'], [320], null, null, false, [], 'news') ?>
+                            <?php $galleryImagesBig = Pi::api('doc', 'media')->getGalleryLinkData($post['additional_images'], 'large', null, null, false, [], 'news') ?>
+                            <?php if ($galleryImages) { ?>
+                                <div class="clearfix">
+                                    <div class="attach-image row">
+                                        <?php foreach ($galleryImages as $key => $galleryImage) { ?>
+                                            <div class="col-lg-2 col-md-3 col-6">
+                                                <div class="u-photo m-3">
+                                                    <a href="<?php echo $galleryImagesBig[$key]['resized_url']; ?>" title="<?php echo $this->escape($galleryImage['title']); ?><?php if ($galleryImage['copyright']) echo ' - ' . $galleryImage['copyright'] ?>">
+                                                        <img itemprop="image" class="img-fluid" src="<?php echo $galleryImage['resized_url'][320]; ?>" alt="<?php echo $this->escape($galleryImage['title']); ?>"/>
+                                                    </a>
                                                 </div>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                <?php }  ?>
-                            </div>
-                        <?php } ?>
-                    </div>
-                <?php } ?>
-                <div class="clearfix">
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <?php if (isset($vote) && !empty($vote)) {
-                                include $this->template('votebar.phtml', 'front', 'vote');
-                            } ?>
-                        </li>
-                        <li class="list-inline-item">
-                            <?php if (isset($favourite) && !empty($favourite)) {
-                                include $this->template('favouritebar.phtml', 'front', 'favourite');
-                            } ?>
-                        </li>
-                    </ul>
-                </div>
-                <?php if (!empty($post['authors']) && $configNews['show_author']) { ?>
-                    <div class="clearfix">
-                        <?php foreach ($post['authors'] as $author) { ?>
-                            <div class="p-author clearfix" itemprop="publisher">
-                                <p class="text-center">
-                                    <img itemprop="image" class="rounded-circle"
-                                         src="<?php echo $this->escape($author['authorThumbUrl']); ?>"
-                                         alt="<?php echo $this->escape($author['authorName']); ?>"/>
-                                </p>
-                                <p class="text-center">
-                                    <?php echo $this->escape($author['authorRole']); ?> :
-                                    <a title="<?php echo $this->escape($author['authorName']); ?>"
-                                       href="<?php echo $this->escape($author['authorUrl']); ?>">
-                                        <?php echo $this->escape($author['authorName']); ?>
-                                    </a>
-                                </p>
-                            </div>
-                        <?php } ?>
-                    </div>
-                <?php } ?>
-                <?php if ($configNews['show_tag'] && isset($tag) && !empty($tag)) { ?>
-                    <div class="well clearfix">
-                        <h2><?php _e('Tags'); ?></h2>
-                        <ul class="tagList list-inline">
-                            <?php foreach ($tag as $term) { ?>
-                                <li class="tagItem list-inline-item">
-                                    <a title="<?php echo $this->escape($term); ?>"
-                                       href="<?php echo Pi::url($this->url('', array('controller' => 'tag', 'action' => 'term', 'slug' => urlencode($term)))); ?>">
-                                        <i class="fa fa-tag"></i> <?php echo $this->escape($term); ?>
-                                    </a>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
-                <?php } ?>
-                <?php include $this->template('attribute', 'front', 'news'); ?>
-                <?php if ($configNews['social_sharing']) { ?>
-                    <div class="clearfix">
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
-                            <strong><?php _e('Share if you like'); ?></strong>
-                        </div>
-                        <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
-                            <?php echo $this->socialSharing(
-                                $configNews['social_sharing'],
-                                $this->escape($post['title']),
-                                $this->escape($post['postUrl']),
-                                $this->escape($post['largeUrl'])
-                            ); ?>
-                        </div>
-                    </div>
-                <?php } ?>
-                <?php /* if (isset($relateds) && !empty($relateds)) { ?>
-                    <div class="panel panel-default news-post-related">
-                        <div class="panel-heading">
-                            <?php _e('Related posts'); ?>
-                        </div>
-                        <div class="list-group">
-                            <?php foreach ($relateds as $related) { ?>
-                                <div class="list-group-item clearfix" itemscope itemtype="http://schema.org/Article">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <?php if ($related['main_image']) { ?>
-                                                <img itemprop="image" class="img-responsive u-photo"
-                                                     src="<?php echo $this->escape($related['thumbUrl']); ?>"
-                                                     alt="<?php echo $this->escape($related['title']); ?>"/>
-                                            <?php } ?>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <a itemprop="url" class="u-url" title="<?php echo $this->escape($related['title']); ?>"
-                                               href="<?php echo $this->escape($related['postUrl']); ?>">
-                                                <span class="p-name" itemprop="name headline"><?php echo $this->escape($related['title']); ?></span>
-                                            </a>
-                                            <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $related['time_publish'])); ?>" />
-                                        </div>
+                                            </div>
+                                        <?php } ?>
                                     </div>
                                 </div>
-                            <?php } ?>
+                            <?php }  ?>
                         </div>
-                    </div>
-                <?php } */ ?>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+            <h1><?php echo $this->escape($post['title']); ?></h1>
+            <div class="clearfix">
+                <ul class="list-inline text-muted">
+                    <?php if ($configNews['show_date']) { ?>
+                        <li class="itemPostDate dt-published list-inline-item">
+                            <i class="fa fa-calendar"></i> <?php echo $this->escape($post['time_publish_view']); ?>
+                        </li>
+                    <?php } ?>
+                    <?php if ($configNews['show_hits']) { ?>
+                        <li class="itemStats list-inline-item">
+                            <i class="fa fa-eye"></i> <?php echo _number($this->escape($post['hits'])); ?> <?php _e('Times'); ?>
+                        </li>
+                    <?php } ?>
+                </ul>
             </div>
         </div>
+        <?php if ($post['subtitle']) { ?>
+            <h2><?php echo $this->escape($post['subtitle']); ?></h2>
+        <?php } ?>
+        <div class="clearfix p-summary" itemprop="description">
+            <?php echo $post['text_summary']; ?>
+        </div>
+        <div class="clearfix e-content" itemprop="description">
+            <?php echo $post['text_description']; ?>
+        </div>
+        <?php if ($configNews['admin_text_extra'] && !empty($post['text_html'])) { ?>
+            <div class="clearfix">
+                <?php echo $post['text_html']; ?>
+            </div>
+        <?php } ?>
+        <?php include $this->template('attribute', 'front', 'news'); ?>
+        <div class="postMedia clearfix">
+            <?php include $this->template('attach-audio', 'front', 'news'); ?>
+            <?php include $this->template('attribute-audio', 'front', 'news'); ?>
+            <?php include $this->template('attach-video', 'front', 'news'); ?>
+            <?php include $this->template('attribute-video', 'front', 'news'); ?>
+            <?php include $this->template('attribute-file', 'front', 'news'); ?>
+            <?php //include $this->template('attach', 'front', 'news'); ?>
+        </div>
+        <?php if (!empty($post['authors']) && $configNews['show_author']) { ?>
+            <div class="clearfix">
+                <?php foreach ($post['authors'] as $author) { ?>
+                    <div class="clearfix row p-author clearfix" itemprop="publisher">
+                        <div class="col-3 text-center">
+                            <img itemprop="image" class="rounded-circle"
+                                 src="<?php echo $this->escape($author['authorThumbUrl']); ?>"
+                                 alt="<?php echo $this->escape($author['authorName']); ?>"/>
+                        </div>
+                        <div class="cold-9 text-center">
+                            <?php echo $this->escape($author['authorRole']); ?> :
+                            <a title="<?php echo $this->escape($author['authorName']); ?>"
+                               href="<?php echo $this->escape($author['authorUrl']); ?>">
+                                <?php echo $this->escape($author['authorName']); ?>
+                            </a>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+        <?php if ($configNews['show_tag'] && isset($tag) && !empty($tag)) { ?>
+            <div class="well clearfix">
+                <h2><?php _e('Tags'); ?></h2>
+                <ul class="tagList list-inline">
+                    <?php foreach ($tag as $term) { ?>
+                        <li class="tagItem list-inline-item">
+                            <a title="<?php echo $this->escape($term); ?>"
+                               href="<?php echo Pi::url($this->url('', array('controller' => 'tag', 'action' => 'term', 'slug' => urlencode($term)))); ?>">
+                                <i class="fa fa-tag"></i> <?php echo $this->escape($term); ?>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        <?php } ?>
+        <?php if ((isset($vote) && !empty($vote)) || (isset($favourite) && !empty($favourite))) { ?>
+            <div class="clearfix">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <?php if (isset($vote) && !empty($vote)) {
+                            include $this->template('votebar.phtml', 'front', 'vote');
+                        } ?>
+                    </li>
+                    <li class="list-inline-item">
+                        <?php if (isset($favourite) && !empty($favourite)) {
+                            include $this->template('favouritebar.phtml', 'front', 'favourite');
+                        } ?>
+                    </li>
+                </ul>
+            </div>
+        <?php } ?>
+        <?php if ($configNews['social_sharing']) { ?>
+            <div class="clearfix">
+                <div class="col-md-12 col-sm-12 col-xs-12 socialSharingText">
+                    <strong><?php _e('Share if you like'); ?></strong>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12 socialSharing">
+                    <?php echo $this->socialSharing(
+                        $configNews['social_sharing'],
+                        $this->escape($post['title']),
+                        $this->escape($post['postUrl']),
+                        $this->escape($post['largeUrl'])
+                    ); ?>
+                </div>
+            </div>
+        <?php } ?>
+        <?php if (isset($relateds) && !empty($relateds)) { ?>
+            <div class="clearix">
+                <h3 class="mb-3"><?php _e('Related posts'); ?></h3>
+                <div class="row clearfix">
+                    <?php foreach ($relateds as $related) { ?>
+                        <div class="col-md-3 col-12 clearfix" itemscope itemtype="http://schema.org/Article">
+                            <div class="card">
+                                <img itemprop="image" class="card-img-top u-photo"
+                                     src="<?php echo $this->escape($related['thumbUrl']); ?>"
+                                     alt="<?php echo $this->escape($related['title']); ?>"/>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a itemprop="url" class="u-url" title="<?php echo $this->escape($related['title']); ?>"
+                                           href="<?php echo $this->escape($related['postUrl']); ?>">
+                                            <span class="p-name" itemprop="name headline"><?php echo $this->escape($related['title']); ?></span>
+                                        </a>
+                                    </h4>
+                                    <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $related['time_publish'])); ?>" />
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
+        <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
         <meta itemprop="url" content="<?php echo $this->escape($post['postUrl']); ?>" />
         <meta itemprop="mainEntityOfPage" content="<?php echo $this->escape($post['postUrl']); ?>" />
         <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
