@@ -9,62 +9,110 @@
         </div>
     <?php } ?>
     <?php if (!empty($postList)) { ?>
-        <div class="post-list clearfix" itemscope itemtype="http://schema.org/LiveBlogPosting">
-            <?php foreach ($postList as $post) { ?>
-                <div class="post-single clearfix h-post" itemprop="liveBlogUpdate" itemscope itemtype="http://schema.org/BlogPosting">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-12 mb-3">
+        <?php if ($config['view_template'] == 'list') { ?>
+            <div class="post-list clearfix" itemscope itemtype="http://schema.org/LiveBlogPosting">
+                <?php foreach ($postList as $post) { ?>
+                    <div class="post-single clearfix h-post" itemprop="liveBlogUpdate" itemscope itemtype="http://schema.org/BlogPosting">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-12 mb-3">
+                                <?php if ($post['main_image']) { ?>
+                                    <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>"
+                                       href="<?php echo $this->escape($post['postUrl']); ?>">
+                                        <img itemprop="image" class="img-fluid u-photo"
+                                             src="<?php echo $this->escape($post['mediumUrl']); ?>"
+                                             alt="<?php echo $this->escape($post['title']); ?>"/>
+                                    </a>
+                                <?php } ?>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-12">
+                                <div class="post-single-title p-name" itemprop="name">
+                                    <h2 class="clearfix" itemprop="headline">
+                                        <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>"
+                                           href="<?php echo $this->escape($post['postUrl']); ?>">
+                                            <?php echo $this->escape($post['title']); ?>
+                                        </a>
+                                        <?php if ($post['subtitle']) { ?>
+                                            <small class="pull-right"><?php echo $this->escape($post['subtitle']); ?></small>
+                                        <?php } ?>
+                                    </h2>
+                                </div>
+                                <div class="post-single-information small">
+                                    <ul class="clearfix list-inline post-time">
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-clock-o"></i> <?php echo $this->escape($post['time_create_view']); ?>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <i class="fa fa-eye"></i> <?php echo $this->escape(_number($post['hits'])); ?>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <?php if (!empty($post['text_summary'])) { ?>
+                                    <div class="post-single-summery clearfix p-summary" itemprop="articleBody description">
+                                        <?php echo $post['text_summary']; ?>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
+                        <meta itemprop="dateModified" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_update'])); ?>" />
+                        <meta itemprop="author" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+                        <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+                            <meta itemprop="url" content="<?php echo Pi::url($this->url('home')); ?>" />
+                            <meta itemprop="name" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+                            <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                                <meta itemprop="url" content="<?php echo $this->logo(); ?>" />
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } elseif ($config['view_template'] == 'box') { ?>
+            <div class="post-list clearfix row" itemscope itemtype="http://schema.org/LiveBlogPosting">
+                <?php foreach ($postList as $post) { ?>
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="card mb-3">
                             <?php if ($post['main_image']) { ?>
                                 <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>"
                                    href="<?php echo $this->escape($post['postUrl']); ?>">
-                                    <img itemprop="image" class="img-fluid u-photo"
+                                    <img itemprop="image" class="card-img-top"
                                          src="<?php echo $this->escape($post['mediumUrl']); ?>"
-                                         alt="<?php echo $this->escape($post['title']); ?>"/>
+                                         alt="<?php echo $this->escape($post['title']); ?>">
                                 </a>
                             <?php } ?>
-                        </div>
-                        <div class="col-lg-8 col-md-8 col-12">
-                            <div class="post-single-title p-name" itemprop="name">
-                                <h2 class="clearfix" itemprop="headline">
-                                    <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>"
-                                       href="<?php echo $this->escape($post['postUrl']); ?>">
-                                        <?php echo $this->escape($post['title']); ?>
+                            <div class="card-body">
+                                <h2 class="card-title" itemprop="headline">
+                                    <a itemprop="url mainEntityOfPage" title="<?php echo $this->escape($post['title']); ?>" href="<?php echo $this->escape($post['postUrl']); ?>">
+                                        <span class="p-name" itemprop="name">
+                                            <?php echo $this->escape($post['title']); ?>
+                                        </span>
                                     </a>
-                                    <?php if ($post['subtitle']) { ?>
-                                        <small class="pull-right"><?php echo $this->escape($post['subtitle']); ?></small>
-                                    <?php } ?>
                                 </h2>
-                            </div>
-                            <div class="post-single-information small">
-                                <ul class="clearfix list-inline post-time">
-                                    <li class="list-inline-item">
-                                        <i class="fa fa-clock-o"></i> <?php echo $this->escape($post['time_create_view']); ?>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <i class="fa fa-eye"></i> <?php echo $this->escape(_number($post['hits'])); ?>
-                                    </li>
-                                </ul>
-                            </div>
-                            <?php if (!empty($post['text_summary'])) { ?>
-                                <div class="post-single-summery clearfix p-summary" itemprop="articleBody description">
-                                    <?php echo $post['text_summary']; ?>
+                                <?php if (!empty($post['text_summary'])) { ?>
+                                    <div class="card-text clearfix p-summary" itemprop="articleBody description">
+                                        <?php if (!empty($config['text_limit']) && $config['text_limit'] > 0) {
+                                            $post['text_summary'] = mb_substr(strip_tags($post['text_summary']), 0, $block['text_limit'], 'utf-8') . "...";
+                                        } ?>
+                                        <?php echo $post['text_summary']; ?>
+                                    </div>
+                                <?php } ?>
+                                <small class="card-text d-block mb-2"><?php echo $this->escape($post['time_create_view']); ?></small>
+                                <a href="<?php echo $this->escape($post['postUrl']); ?>" class="btn btn-info"><?php _e('Read More') ?></a>
+                                <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
+                                <meta itemprop="dateModified" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_update'])); ?>" />
+                                <meta itemprop="author" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+                                <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+                                    <meta itemprop="url" content="<?php echo Pi::url($this->url('home')); ?>" />
+                                    <meta itemprop="name" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
+                                    <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+                                        <meta itemprop="url" content="<?php echo $this->logo(); ?>" />
+                                    </div>
                                 </div>
-                            <?php } ?>
+                            </div>
                         </div>
                     </div>
-                    <meta itemprop="datePublished" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_publish'])); ?>" />
-                    <meta itemprop="dateModified" content="<?php echo $this->escape(date("Y-m-d H:i:s", $post['time_update'])); ?>" />
-                    <meta itemprop="author" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
-                    <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-                        <meta itemprop="url" content="<?php echo Pi::url($this->url('home')); ?>" />
-                        <meta itemprop="name" content="<?php echo $this->escape(Pi::config('sitename')); ?>" />
-                        <div itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-                            <meta itemprop="url" content="<?php echo $this->logo(); ?>" />
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
-        </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
         <div class="paginator">
             <?php echo $this->paginationControl($paginator, 'Sliding', 'paginator.phtml'); ?>
         </div>

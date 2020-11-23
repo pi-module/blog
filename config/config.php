@@ -35,6 +35,7 @@ return [
             'filter'      => 'number_int',
             'value'       => 10,
         ],
+
         // View
         'view_perpage'           => [
             'category'    => 'view',
@@ -44,6 +45,30 @@ return [
             'filter'      => 'number_int',
             'value'       => 10,
         ],
+        'view_template'          => [
+            'title'       => _a('View template'),
+            'description' => '',
+            'edit'        => [
+                'type'    => 'select',
+                'options' => [
+                    'options' => [
+                        'list' => _a('List'),
+                        'box'  => _a('Box'),
+                    ],
+                ],
+            ],
+            'filter'      => 'text',
+            'value'       => 'list',
+            'category'    => 'view',
+        ],
+        'text_limit'     => [
+            'title'       => _a('Text width limit'),
+            'description' => _a('Set 0 for no limit'),
+            'edit'        => 'text',
+            'filter'      => 'number_int',
+            'value'       => 0,
+        ],
+
         // Social
         'social_sharing'         => [
             'title'       => _t('Social sharing items'),
@@ -57,6 +82,7 @@ return [
             'filter'      => 'array',
             'category'    => 'social',
         ],
+
         // head_meta
         'text_description_index' => [
             'category'    => 'head_meta',
