@@ -90,7 +90,7 @@
                                 <?php if (!empty($post['text_summary'])) { ?>
                                     <div class="card-text clearfix p-summary" itemprop="articleBody description">
                                         <?php if (!empty($config['text_limit']) && $config['text_limit'] > 0) {
-                                            $post['text_summary'] = mb_substr(strip_tags($post['text_summary']), 0, $block['text_limit'], 'utf-8') . "...";
+                                            $post['text_summary'] = mb_substr(strip_tags($post['text_summary']), 0, $config['text_limit'], 'utf-8') . "...";
                                         } ?>
                                         <?php echo $post['text_summary']; ?>
                                     </div>
