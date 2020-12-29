@@ -32,7 +32,8 @@ class Post extends AbstractApi
         // Set post url
         $post['postUrl'] = Pi::url(
             Pi::service('url')->assemble(
-                'blog', [
+                'blog',
+                [
                     'module'     => 'blog',
                     'controller' => 'post',
                     'slug'       => $post['slug'],
@@ -55,7 +56,8 @@ class Post extends AbstractApi
             $postList[$single['id']]            = $single;
             $postList[$single['id']]['postUrl'] = Pi::url(
                 Pi::service('url')->assemble(
-                    'blog', [
+                    'blog',
+                    [
                     'module'     => 'blog',
                     'controller' => 'post',
                     'slug'       => $single['slug'],
@@ -80,7 +82,8 @@ class Post extends AbstractApi
             $list[$post['id']]            = $post;
             $list[$post['id']]['postUrl'] = Pi::url(
                 Pi::service('url')->assemble(
-                    'blog', [
+                    'blog',
+                    [
                     'module'     => $this->getModule(),
                     'controller' => 'post',
                     'slug'       => $post['slug'],

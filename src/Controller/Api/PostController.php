@@ -79,7 +79,6 @@ class PostController extends ActionController
                     'message' => '',
                 ],
             ];
-
         } else {
             // Set error
             $result['error'] = [

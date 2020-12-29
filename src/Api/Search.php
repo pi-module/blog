@@ -73,7 +73,8 @@ class Search extends AbstractSearch
     {
         $link = Pi::url(
             Pi::service('url')->assemble(
-                'blog', [
+                'blog',
+                [
                 'module'     => $this->getModule(),
                 'controller' => 'post',
                 'slug'       => $item['slug'],

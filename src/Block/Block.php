@@ -39,15 +39,19 @@ class Block
             $block['resources'][$post['id']] = $post;
             if (!empty($block['text_limit']) && $block['text_limit'] > 0) {
                 $block['resources'][$post['id']]['text_summary'] = mb_substr(
-                        strip_tags($block['resources'][$post['id']]['text_summary']), 0, $block['text_limit'], 'utf-8'
-                    ) . "...";
+                    strip_tags($block['resources'][$post['id']]['text_summary']),
+                    0,
+                    $block['text_limit'],
+                    'utf-8'
+                ) . "...";
             }
         }
 
         // Set url
         $block['morelink'] = Pi::url(
             Pi::service('url')->assemble(
-                'blog', [
+                'blog',
+                [
                 'module' => $module,
                 'controller' => 'index',
                 'action' => 'index',
